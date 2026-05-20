@@ -65,7 +65,7 @@
     "@ancplua/typespec-emit-duckdb": "file:./emitters/duckdb",
     "@ancplua/typespec-emit-ts-types": "file:./emitters/ts-types",
     "@ancplua/typespec-otelconventions-lint": "file:./emitters/otelconventions-lint",
-    "@types/node": "25.8.0",
+    "@types/node": "25.9.1",
     "@typespec/compiler": "1.12.0",
     "@typespec/events": "0.82.0",
     "@typespec/http": "1.12.0",
