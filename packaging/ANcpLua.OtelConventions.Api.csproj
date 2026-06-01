@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Packs the C# contracts emitted by @ancplua/typespec-emit-csharp (into ../generated/contracts)
+       as the ANcpLua.OtelConventions.Api NuGet. The emitted code is BCL-only POCOs (no usings,
+       relies on ImplicitUsings; no System.Text.Json), file-scoped namespaces + required/init —
+       net10.0 compiles it without polyfills. Run the C# emitter (npm run compile, or the
+       EmitCSharp / PackContractsNuget Nuke targets) before packing. -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <PackageId>ANcpLua.OtelConventions.Api</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>ancplua</Authors>
+    <Description>Generated C# contract types (requests, responses, enums) for the ANcpLua OpenTelemetry conventions API surface, emitted from the @o-ancpplua/otel-conventions-api TypeSpec contract.</Description>
+    <PackageTags>opentelemetry;semantic-conventions;contracts;typespec</PackageTags>
+    <RepositoryUrl>https://github.com/O-ANcppLua/ANcpLua.OtelConventions.Api</RepositoryUrl>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Emitted partial XML-doc coverage; the source is generated, not hand-maintained. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)../generated/contracts/**/*.cs" />
+  </ItemGroup>
+
+</Project>

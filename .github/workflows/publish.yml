@@ -36,6 +36,10 @@ jobs:
           scope: '@o-ancpplua'
           always-auth: true
 
+      - uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5
+        with:
+          dotnet-version: '10.0.x'
+
       - name: Verify package.json is not private
         run: |
           if [ "$(node -p "require('./package.json').private || false")" = "true" ]; then
@@ -82,3 +86,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: 'true'
+
+      # C# contracts: emit @ancplua/typespec-emit-csharp, pack the ANcpLua.OtelConventions.Api
+      # NuGet (versioned from package.json), and push to the same GitHub Packages feed.
+      - name: Publish C# contracts NuGet
+        run: ./build.sh PublishContractsNuget
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

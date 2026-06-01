@@ -405,10 +405,54 @@ sealed class Build : NukeBuild, IDomainConventionsApi
     }
 
     // ---------------------------------------------------------------------
+    // PackContractsNuget / PublishContractsNuget: the C# contracts NuGet,
+    // mirroring the npm Pack/PublishApiPackage targets. The packaging/ project
+    // compiles generated/contracts (gitignored @ancplua/typespec-emit-csharp
+    // output) into ANcpLua.OtelConventions.Api, versioned from package.json so
+    // the npm and NuGet artifacts stay in lockstep.
+    // ---------------------------------------------------------------------
+    AbsolutePath PackagingProject => RootDirectory / "packaging" / "ANcpLua.OtelConventions.Api.csproj";
+    AbsolutePath NugetOutputDir => ArtifactsDir / "nuget";
+
+    string PackageJsonVersion()
+    {
+        var pkgJson = ((IDomainConventionsApi)this).DomainSpecRoot / "package.json";
+        using var doc = JsonDocument.Parse(File.ReadAllText(pkgJson));
+        return doc.RootElement.GetProperty("version").GetString()
+            ?? throw new InvalidOperationException($"'{pkgJson}' has no 'version'.");
+    }
+
+    Target PackContractsNuget => _ => _
+        .Description("Pack the emitted C# contracts (generated/contracts) into the ANcpLua.OtelConventions.Api NuGet, versioned from package.json.")
+        .DependsOn(((IDomainConventionsApi)this).EmitCSharp)
+        .Executes(() =>
+        {
+            DotNetPack(s => s
+                .SetProject(PackagingProject)
+                .SetConfiguration("Release")
+                .SetOutputDirectory(NugetOutputDir)
+                .SetVersion(PackageJsonVersion()));
+        });
+
+    Target PublishContractsNuget => _ => _
+        .Description("Push ANcpLua.OtelConventions.Api*.nupkg to the O-ANcppLua GitHub Packages NuGet feed (uses GITHUB_TOKEN).")
+        .DependsOn(PackContractsNuget)
+        .Executes(() =>
+        {
+            var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")
+                ?? throw new InvalidOperationException("PublishContractsNuget: GITHUB_TOKEN is required.");
+            DotNetNuGetPush(s => s
+                .SetTargetPath(NugetOutputDir / "*.nupkg")
+                .SetSource("https://nuget.pkg.github.com/O-ANcppLua/index.json")
+                .SetApiKey(token)
+                .EnableSkipDuplicate());
+        });
+
+    // ---------------------------------------------------------------------
     // Local "everything green" gate.
     // ---------------------------------------------------------------------
     Target Check => _ => _
-        .Description("Local everything-green gate: restore -> lockstep -> compile -> no-manual-edits -> emit-all -> determinism -> pack.")
+        .Description("Local everything-green gate: restore -> lockstep -> compile -> no-manual-edits -> emit-all -> determinism -> npm pack -> C# contracts pack.")
         .DependsOn(
             ((IDomainConventionsApi)this).RestoreTypeSpecDeps,
             ((IDomainConventionsApi)this).VerifyKeysLockstep,
@@ -416,5 +460,6 @@ sealed class Build : NukeBuild, IDomainConventionsApi
             ((IDomainConventionsApi)this).VerifyNoManualEditsToGenerated,
             ((IDomainConventionsApi)this).EmitAll,
             ((IDomainConventionsApi)this).VerifyEmitDeterministic,
-            ((IDomainConventionsApi)this).PackApiPackage);
+            ((IDomainConventionsApi)this).PackApiPackage,
+            PackContractsNuget);
 }
