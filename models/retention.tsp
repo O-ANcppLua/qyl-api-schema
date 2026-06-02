@@ -23,7 +23,7 @@ model RetentionPolicyEntity {
   @key
   id: string;
 
-  @doc("Target DuckDB table")
+  @doc("Target storage table")
   @encodedName("application/json", "target_table")
   targetTable: string;
 
@@ -75,14 +75,14 @@ enum CleanupStrategy {
 // Compaction State
 // =============================================================================
 
-@doc("DuckDB compaction progress tracker")
+@doc("Storage compaction progress tracker")
 @extension("x-csharp-type", "CompactionStateEntity")
 model CompactionStateEntity {
   @doc("State ID")
   @key
   id: string;
 
-  @doc("Target DuckDB table")
+  @doc("Target storage table")
   @encodedName("application/json", "target_table")
   targetTable: string;
 

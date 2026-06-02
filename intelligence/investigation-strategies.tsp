@@ -17,7 +17,7 @@ model InvestigationStep {
   @doc("What to do (e.g. query_traces, get_code_location, compare_deployments)")
   action: string;
 
-  @doc("DuckDB query template or MCP tool name")
+  @doc("Query template or tool name")
   query: string;
 
   @doc("Human-readable explanation of this step")

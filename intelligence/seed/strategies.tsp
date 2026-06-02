@@ -5,7 +5,7 @@
 // These compile to static registries in InvestigationStrategies.g.cs.
 //
 // Trigger patterns use category:X syntax for category-wide triggers.
-// Query templates use DuckDB SQL against the telemetry data model schema.
+// Query templates are abstract qyl investigation hints; the runtime decides how to execute them.
 // =============================================================================
 
 namespace Qyl.Api.Contracts.Intelligence.Seed;

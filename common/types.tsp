@@ -105,17 +105,16 @@ scalar UserId extends string;
 scalar Timestamp extends utcDateTime;
 
 @jsonSchema
-@doc("Unix timestamp in nanoseconds since epoch")
-@encode(DateTimeKnownEncoding.unixTimestamp, int64)
-@TypeSpec.OpenAPI.extension("x-csharp-struct", true)
-@TypeSpec.OpenAPI.extension("x-csharp-type", "UnixNano")
-scalar UnixNanos extends utcDateTime;
+@doc("Unsigned Unix timestamp in nanoseconds since epoch")
+@minValue(0)
+@TypeSpec.OpenAPI.extension("x-csharp-type", "ulong")
+scalar UnixNanos extends uint64;
 
 @jsonSchema
 @doc("Duration in nanoseconds")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-csharp-type", "long")
-scalar DurationNs extends int64;
+@TypeSpec.OpenAPI.extension("x-csharp-type", "ulong")
+scalar DurationNs extends uint64;
 
 @jsonSchema
 @doc("Duration in milliseconds")

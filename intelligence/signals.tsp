@@ -2,7 +2,7 @@
 // ANcpLua v2.0 - Signal Primitive
 // =============================================================================
 // The atomic unit of telemetry observation. A single attribute condition.
-// Signals reference semconv attributes and promoted DuckDB columns only.
+// Signals reference semconv attributes and qyl-derived attributes only.
 // =============================================================================
 
 import "@typespec/openapi";

@@ -8391,10 +8391,10 @@
       },
       "Common.DurationNs": {
         "type": "integer",
-        "format": "int64",
+        "format": "uint64",
         "minimum": 0,
         "description": "Duration in nanoseconds",
-        "x-csharp-type": "long"
+        "x-csharp-type": "ulong"
       },
       "Common.DurationS": {
         "type": "number",
@@ -8788,6 +8788,13 @@
         "examples": [
           "rojo=00f067aa0ba902b7,congo=t61rcWkgMzE"
         ]
+      },
+      "Common.UnixNanos": {
+        "type": "integer",
+        "format": "uint64",
+        "minimum": 0,
+        "description": "Unsigned Unix timestamp in nanoseconds since epoch",
+        "x-csharp-type": "ulong"
       },
       "Common.UrlString": {
         "type": "string",
@@ -12756,13 +12763,19 @@
         ],
         "properties": {
           "time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Timestamp when the event occurred (nanoseconds since epoch)"
           },
           "observed_time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Timestamp when the log was observed/collected (nanoseconds since epoch)"
           },
           "severity_number": {
@@ -12914,13 +12927,19 @@
         ],
         "properties": {
           "start_time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Start timestamp in nanoseconds since epoch"
           },
           "time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "End timestamp in nanoseconds since epoch"
           },
           "attributes": {
@@ -12948,8 +12967,11 @@
         ],
         "properties": {
           "time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Timestamp in nanoseconds since epoch"
           },
           "as_int": {
@@ -13517,13 +13539,19 @@
             "description": "Profiling samples"
           },
           "time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Profile start timestamp in nanoseconds since epoch"
           },
           "duration_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.DurationNs"
+              }
+            ],
             "description": "Profile duration in nanoseconds"
           },
           "period_type": {
@@ -13707,7 +13735,7 @@
           },
           "address": {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "description": "Instruction address (program counter)"
           },
           "lines": {
@@ -13733,17 +13761,17 @@
         "properties": {
           "memory_start": {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "description": "Start address of the mapping in virtual memory"
           },
           "memory_limit": {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "description": "Limit address (exclusive) of the mapping"
           },
           "file_offset": {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "description": "Offset within the mapped file"
           },
           "filename_strindex": {
@@ -13794,8 +13822,7 @@
           "timestamps_unix_nano": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "format": "int64"
+              "$ref": "#/components/schemas/Common.UnixNanos"
             },
             "description": "Timestamps for each value in nanoseconds since epoch"
           }
@@ -14128,13 +14155,19 @@
             "description": "Span kind"
           },
           "start_time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Start timestamp in nanoseconds since epoch"
           },
           "end_time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "End timestamp in nanoseconds since epoch"
           },
           "attributes": {
@@ -14227,8 +14260,11 @@
             "description": "Event name"
           },
           "time_unix_nano": {
-            "type": "integer",
-            "format": "int64",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.UnixNanos"
+              }
+            ],
             "description": "Event timestamp in nanoseconds since epoch"
           },
           "attributes": {

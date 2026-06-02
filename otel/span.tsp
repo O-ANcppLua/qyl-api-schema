@@ -50,11 +50,11 @@ model Span {
 
   @doc("Start timestamp in nanoseconds since epoch")
   @encodedName("application/json", "start_time_unix_nano")
-  startTimeUnixNano: int64;
+  startTimeUnixNano: UnixNanos;
 
   @doc("End timestamp in nanoseconds since epoch")
   @encodedName("application/json", "end_time_unix_nano")
-  endTimeUnixNano: int64;
+  endTimeUnixNano: UnixNanos;
 
   @doc("Span attributes")
   attributes?: Attribute[];
@@ -108,7 +108,7 @@ model SpanEvent {
 
   @doc("Event timestamp in nanoseconds since epoch")
   @encodedName("application/json", "time_unix_nano")
-  timeUnixNano: int64;
+  timeUnixNano: UnixNanos;
 
   @doc("Event attributes")
   attributes?: Attribute[];

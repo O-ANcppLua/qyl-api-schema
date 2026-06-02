@@ -40,11 +40,11 @@ model Profile {
 
   @doc("Profile start timestamp in nanoseconds since epoch")
   @encodedName("application/json", "time_unix_nano")
-  timeUnixNano: int64;
+  timeUnixNano: UnixNanos;
 
   @doc("Profile duration in nanoseconds")
   @encodedName("application/json", "duration_nano")
-  durationNano: int64;
+  durationNano: DurationNs;
 
   @doc("Sampling period type")
   @encodedName("application/json", "period_type")
@@ -136,7 +136,7 @@ model ProfileSample {
 
   @doc("Timestamps for each value in nanoseconds since epoch")
   @encodedName("application/json", "timestamps_unix_nano")
-  timestampsUnixNano?: int64[];
+  timestampsUnixNano?: UnixNanos[];
 }
 
 @doc("Code location within a profiled binary")
@@ -146,7 +146,7 @@ model ProfileLocation {
   mappingIndex?: int32;
 
   @doc("Instruction address (program counter)")
-  address?: int64;
+  address?: uint64;
 
   @doc("Source lines at this location")
   lines?: ProfileLine[];
@@ -192,15 +192,15 @@ model ProfileFunction {
 model ProfileMapping {
   @doc("Start address of the mapping in virtual memory")
   @encodedName("application/json", "memory_start")
-  memoryStart?: int64;
+  memoryStart?: uint64;
 
   @doc("Limit address (exclusive) of the mapping")
   @encodedName("application/json", "memory_limit")
-  memoryLimit?: int64;
+  memoryLimit?: uint64;
 
   @doc("Offset within the mapped file")
   @encodedName("application/json", "file_offset")
-  fileOffset?: int64;
+  fileOffset?: uint64;
 
   @doc("Filename string index of the mapped binary")
   @encodedName("application/json", "filename_strindex")
@@ -273,7 +273,7 @@ model ProfileQueryFilters {
   @doc("Minimum duration in nanoseconds")
   @query
   @encodedName("application/json", "min_duration_nano")
-  minDurationNano?: int64;
+  minDurationNano?: DurationNs;
 
   @doc("Start of time range (inclusive, ISO 8601)")
   @query

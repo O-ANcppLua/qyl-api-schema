@@ -1,8 +1,8 @@
 // =============================================================================
-// ANcpLua v2.0 - Tool Call Storage Model (OTel v1.40)
+// ANcpLua v2.0 - Tool Call Contract Model (OTel v1.40)
 // =============================================================================
-// Materialized tool call records extracted from OTLP spans.
-// Maps OTel GenAI tool semantic convention attributes to DuckDB columns.
+// Tool call records extracted from OTLP spans.
+// Maps OTel GenAI tool semantic convention attributes to qyl API contract fields.
 //
 // OTel semconv mapping:
 //   gen_ai.tool.name           → tool_name
@@ -41,7 +41,7 @@ enum ToolCallStatus {
 }
 
 // =============================================================================
-// Tool Call Entity - Storage Model
+// Tool Call Entity
 // =============================================================================
 
 @doc("Tool call entity materialized from OTLP spans with gen_ai.tool.* attributes")
@@ -95,10 +95,10 @@ model ToolCallEntity {
   // === Timing ===
 
   @doc("Tool call start time in nanoseconds since epoch")
-  startTimeUnixNano: int64;
+  startTimeUnixNano: UnixNanos;
 
   @doc("Tool call end time in nanoseconds since epoch")
-  endTimeUnixNano?: int64;
+  endTimeUnixNano?: UnixNanos;
 
   @doc("Duration in nanoseconds")
   durationNs?: DurationNs;

@@ -1,8 +1,8 @@
 // =============================================================================
-// ANcpLua v2.0 - Workflow Execution Storage Model (OTel v1.40)
+// ANcpLua v2.0 - Workflow Execution Contract Model (OTel v1.40)
 // =============================================================================
 // Workflow execution tracking for multi-step AI agent workflows.
-// Formalizes the existing manual DuckDB table into TypeSpec.
+// Defines the public qyl workflow execution contract.
 // =============================================================================
 
 import "@typespec/openapi";
@@ -57,7 +57,7 @@ enum WorkflowTrigger {
 }
 
 // =============================================================================
-// Workflow Execution Entity - Storage Model
+// Workflow Execution Entity
 // =============================================================================
 
 @doc("Workflow execution entity for tracking multi-step agent workflows")
@@ -115,10 +115,10 @@ model WorkflowExecutionEntity {
   // === Timing ===
 
   @doc("Start timestamp in nanoseconds since epoch")
-  startTimeUnixNano: int64;
+  startTimeUnixNano: UnixNanos;
 
   @doc("End timestamp in nanoseconds since epoch")
-  endTimeUnixNano?: int64;
+  endTimeUnixNano?: UnixNanos;
 
   @doc("Duration in nanoseconds")
   durationNs?: DurationNs;

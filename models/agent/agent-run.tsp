@@ -1,8 +1,8 @@
 // =============================================================================
-// ANcpLua v2.0 - Agent Run Storage Model (OTel v1.40)
+// ANcpLua v2.0 - Agent Run Contract Model (OTel v1.40)
 // =============================================================================
-// Materialized agent run records extracted from OTLP spans.
-// Maps OTel GenAI semantic convention attributes to DuckDB columns.
+// Agent run records extracted from OTLP spans.
+// Maps OTel GenAI semantic convention attributes to qyl API contract fields.
 //
 // OTel semconv mapping:
 //   gen_ai.agent.name        → agent_name
@@ -45,7 +45,7 @@ enum AgentRunStatus {
 }
 
 // =============================================================================
-// Agent Run Entity - Storage Model
+// Agent Run Entity
 // =============================================================================
 
 @doc("Agent run entity materialized from OTLP spans with gen_ai.agent.* attributes")
@@ -122,10 +122,10 @@ model AgentRunEntity {
   // === Timing ===
 
   @doc("Start timestamp in nanoseconds since epoch")
-  startTimeUnixNano: int64;
+  startTimeUnixNano: UnixNanos;
 
   @doc("End timestamp in nanoseconds since epoch")
-  endTimeUnixNano?: int64;
+  endTimeUnixNano?: UnixNanos;
 
   @doc("Duration in nanoseconds")
   durationNs?: DurationNs;
@@ -152,4 +152,3 @@ model AgentRunEntity {
   @TypeSpec.OpenAPI.extension("x-internal", true)
   createdAt?: utcDateTime;
 }
-

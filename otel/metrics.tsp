@@ -131,11 +131,11 @@ model SummaryData extends MetricData {
 model DataPointBase {
   @doc("Start timestamp in nanoseconds since epoch")
   @encodedName("application/json", "start_time_unix_nano")
-  startTimeUnixNano: int64;
+  startTimeUnixNano: UnixNanos;
 
   @doc("End timestamp in nanoseconds since epoch")
   @encodedName("application/json", "time_unix_nano")
-  timeUnixNano: int64;
+  timeUnixNano: UnixNanos;
 
   @doc("Data point attributes")
   attributes?: Attribute[];
@@ -257,7 +257,7 @@ model QuantileValue {
 model Exemplar {
   @doc("Timestamp in nanoseconds since epoch")
   @encodedName("application/json", "time_unix_nano")
-  timeUnixNano: int64;
+  timeUnixNano: UnixNanos;
 
   @doc("Value as integer")
   @encodedName("application/json", "as_int")

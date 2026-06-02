@@ -20,6 +20,18 @@ export const $lib = createTypeSpecLibrary({
                 default: paramMessage`ANcpLua-LINT-001: attribute '${"key"}' collides with upstream OTel namespace '${"prefix"}' — ANcpLua attributes must live under 'ancplua.'`,
             },
         },
+        "unix-nanos-scalar-required": {
+            severity: "error",
+            messages: {
+                default: paramMessage`ANcpLua-LINT-002: field '${"name"}' must use Qyl.Api.Contracts.Common.UnixNanos, not '${"actual"}'`,
+            },
+        },
+        "duration-nanos-scalar-required": {
+            severity: "error",
+            messages: {
+                default: paramMessage`ANcpLua-LINT-003: field '${"name"}' must use Qyl.Api.Contracts.Common.DurationNs, not '${"actual"}'`,
+            },
+        },
     },
     state: {
         ancpluaAttr: { description: "Collected ANcpLua attribute declarations (populated by @ancpluaAttr)" },

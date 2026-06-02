@@ -1,5 +1,5 @@
 // =============================================================================
-// ANcpLua v2.0 - Workflow Checkpoint Storage Model (OTel v1.40)
+// ANcpLua v2.0 - Workflow Checkpoint Contract Model (OTel v1.40)
 // =============================================================================
 // Checkpoint state persistence for workflow execution recovery.
 // Enables resume-from-checkpoint after failures or cancellations.
@@ -14,7 +14,7 @@ using Qyl.Api.Contracts.Common;
 namespace Qyl.Api.Contracts.Domains.Agent.Checkpoint;
 
 // =============================================================================
-// Workflow Checkpoint Entity - Storage Model
+// Workflow Checkpoint Entity
 // =============================================================================
 
 @doc("Workflow checkpoint entity for persisting workflow node state for recovery")
@@ -46,5 +46,5 @@ model WorkflowCheckpointEntity {
   // === Timing ===
 
   @doc("Checkpoint creation time in nanoseconds since epoch")
-  createdAtUnixNano: int64;
+  createdAtUnixNano: UnixNanos;
 }

@@ -26,11 +26,11 @@ namespace Qyl.Api.Contracts.OTel.Logs;
 model LogRecord {
   @doc("Timestamp when the event occurred (nanoseconds since epoch)")
   @encodedName("application/json", "time_unix_nano")
-  timeUnixNano: int64;
+  timeUnixNano: UnixNanos;
 
   @doc("Timestamp when the log was observed/collected (nanoseconds since epoch)")
   @encodedName("application/json", "observed_time_unix_nano")
-  observedTimeUnixNano: int64;
+  observedTimeUnixNano: UnixNanos;
 
   @doc("Severity number (1-24)")
   @encodedName("application/json", "severity_number")

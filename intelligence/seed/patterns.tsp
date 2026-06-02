@@ -6,8 +6,8 @@
 // These compile to static registries in DiagnosticPatterns.g.cs.
 //
 // Signal attributes reference:
-//   - OTel semconv promoted columns (status_code, duration_ns, etc.)
-//   - ANcpLua promoted columns (gen_ai_provider_name, gen_ai_stop_reason, etc.)
+//   - OTel semantic attributes (status_code, duration_ns, etc.)
+//   - qyl-derived attributes (gen_ai_provider_name, gen_ai_stop_reason, etc.)
 //   - Computed fields (occurrence_rate, span_count_under_parent, etc.)
 // =============================================================================
 

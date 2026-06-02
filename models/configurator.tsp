@@ -289,7 +289,7 @@ model SchemaPromotionEntity {
   @encodedName("application/json", "target_column")
   targetColumn: string;
 
-  @doc("DuckDB type for the column")
+  @doc("Storage type for the promoted field")
   @encodedName("application/json", "target_type")
   targetType: string;
 
