@@ -414,6 +414,12 @@ sealed class Build : NukeBuild, IDomainConventionsApi
     AbsolutePath PackagingProject => RootDirectory / "packaging" / "ANcpLua.OtelConventions.Api.csproj";
     AbsolutePath NugetOutputDir => ArtifactsDir / "nuget";
 
+    AbsolutePath ContractsEmitDir => ((IDomainConventionsApi)this).DomainSpecRoot / "generated" / "contracts";
+
+    // NuGet-compatible SemVer (MAJOR.MINOR.PATCH[-prerelease]); no build metadata.
+    static readonly Regex NugetVersionPattern =
+        new(@"^\d+\.\d+\.\d+(-[A-Za-z0-9][A-Za-z0-9.-]*)?$", RegexOptions.Compiled);
+
     string PackageJsonVersion()
     {
         var pkgJson = ((IDomainConventionsApi)this).DomainSpecRoot / "package.json";
@@ -422,27 +428,60 @@ sealed class Build : NukeBuild, IDomainConventionsApi
             ?? throw new InvalidOperationException($"'{pkgJson}' has no 'version'.");
     }
 
+    // NuGet rejects npm-legal build metadata (e.g. 1.2.3+build.5) and other forms package.json
+    // may carry. Strip build metadata and require NuGet-compatible SemVer, so a version that
+    // publishes cleanly on npm cannot hard-fail the pack and silently break the npm/NuGet lockstep.
+    string NugetPackageVersion()
+    {
+        var raw = PackageJsonVersion();
+        var version = raw.Split('+', 2)[0];
+        if (!NugetVersionPattern.IsMatch(version))
+            throw new InvalidOperationException(
+                $"NugetPackageVersion: package.json version '{raw}' is not NuGet-compatible (expected MAJOR.MINOR.PATCH[-prerelease]).");
+        return version;
+    }
+
+    // Clean generated/contracts BEFORE EmitCSharp emits into it: the @ancplua/typespec-emit-csharp
+    // emitter does not self-clean, so a removed/renamed model would otherwise leave a stale type in
+    // the package. Ordered .Before(EmitCSharp) and pulled in via PackContractsNuget's DependsOn, so
+    // the plan is CleanContractsEmit -> EmitCSharp -> PackContractsNuget.
+    Target CleanContractsEmit => _ => _
+        .Unlisted()
+        .Before(((IDomainConventionsApi)this).EmitCSharp)
+        .Executes(() => ContractsEmitDir.CreateOrCleanDirectory());
+
     Target PackContractsNuget => _ => _
-        .Description("Pack the emitted C# contracts (generated/contracts) into the ANcpLua.OtelConventions.Api NuGet, versioned from package.json.")
-        .DependsOn(((IDomainConventionsApi)this).EmitCSharp)
+        .Description("Pack the freshly-emitted C# contracts (generated/contracts) into the ANcpLua.OtelConventions.Api NuGet (versioned from package.json).")
+        .DependsOn(CleanContractsEmit, ((IDomainConventionsApi)this).EmitCSharp)
         .Executes(() =>
         {
+            // Fail fast rather than ship an empty assembly if the emit produced nothing.
+            if (ContractsEmitDir.GlobFiles("**/*.cs").Count == 0)
+                throw new InvalidOperationException(
+                    $"PackContractsNuget: no *.cs under '{ContractsEmitDir}' after emit — refusing to pack an empty package.");
+
+            NugetOutputDir.CreateOrCleanDirectory();
             DotNetPack(s => s
                 .SetProject(PackagingProject)
                 .SetConfiguration("Release")
                 .SetOutputDirectory(NugetOutputDir)
-                .SetVersion(PackageJsonVersion()));
+                .SetVersion(NugetPackageVersion()));
         });
 
     Target PublishContractsNuget => _ => _
-        .Description("Push ANcpLua.OtelConventions.Api*.nupkg to the O-ANcppLua GitHub Packages NuGet feed (uses GITHUB_TOKEN).")
+        .Description("Push the ANcpLua.OtelConventions.Api.<version>.nupkg from this pack to the O-ANcppLua GitHub Packages NuGet feed (uses GITHUB_TOKEN).")
         .DependsOn(PackContractsNuget)
         .Executes(() =>
         {
             var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")
                 ?? throw new InvalidOperationException("PublishContractsNuget: GITHUB_TOKEN is required.");
+            // Push the exact package produced by this run, not a glob — a wildcard would also
+            // upload any stale *.nupkg left in NugetOutputDir on a non-fresh workspace.
+            var package = NugetOutputDir / $"ANcpLua.OtelConventions.Api.{NugetPackageVersion()}.nupkg";
+            if (!package.FileExists())
+                throw new InvalidOperationException($"PublishContractsNuget: expected package '{package}' not found — did PackContractsNuget run?");
             DotNetNuGetPush(s => s
-                .SetTargetPath(NugetOutputDir / "*.nupkg")
+                .SetTargetPath(package)
                 .SetSource("https://nuget.pkg.github.com/O-ANcppLua/index.json")
                 .SetApiKey(token)
                 .EnableSkipDuplicate());

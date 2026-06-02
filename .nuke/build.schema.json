@@ -26,6 +26,7 @@
       "enum": [
         "BuildCSharpEmit",
         "Check",
+        "CleanContractsEmit",
         "CompileDomainSpec",
         "EmitAll",
         "EmitCSharp",
