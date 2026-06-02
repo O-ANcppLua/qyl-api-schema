@@ -36,7 +36,6 @@ enum TriageAutomationLevel {
 // =============================================================================
 
 @doc("AI triage assessment for an error issue")
-@TypeSpec.OpenAPI.extension("x-duckdb-table", "triage_results")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "TriageResultEntity")
 model TriageResultEntity {
   @doc("Triage result ID")

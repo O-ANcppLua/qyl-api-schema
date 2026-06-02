@@ -1,7 +1,7 @@
 {
   "name": "@o-ancpplua/qyl-api-schema",
-  "version": "0.1.0",
-  "description": "TypeSpec source of truth for qyl API contracts. Emits OpenAPI, JSON Schema, Qyl.Api.Contracts DTOs, and storage/schema artifacts; not an OpenTelemetry package and not a server implementation.",
+  "version": "0.1.1",
+  "description": "TypeSpec source of truth for qyl API contracts. Emits OpenAPI, JSON Schema, Qyl.Api.Contracts DTOs, and TypeScript contract types; not an OpenTelemetry package, storage schema, or server implementation.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -50,7 +50,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "build:emitters": "tsc -p emitters/csharp && tsc -p emitters/duckdb && tsc -p emitters/ts-types && tsc -p emitters/otelconventions-lint",
+    "build:emitters": "tsc -p emitters/csharp && tsc -p emitters/ts-types && tsc -p emitters/otelconventions-lint",
     "compile": "npm run build:emitters && tsp compile main.tsp",
     "watch": "tsp compile main.tsp --watch",
     "format": "tsp format **/*.tsp",
@@ -62,7 +62,6 @@
   },
   "devDependencies": {
     "@ancplua/typespec-emit-csharp": "file:./emitters/csharp",
-    "@ancplua/typespec-emit-duckdb": "file:./emitters/duckdb",
     "@ancplua/typespec-emit-ts-types": "file:./emitters/ts-types",
     "@ancplua/typespec-otel-semconv": "1.41.0-2",
     "@ancplua/typespec-otelconventions-lint": "file:./emitters/otelconventions-lint",

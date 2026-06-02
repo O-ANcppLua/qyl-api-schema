@@ -110,7 +110,6 @@ enum DeploymentStrategy {
 // =============================================================================
 
 @doc("Complete deployment record")
-@TypeSpec.OpenAPI.extension("x-duckdb-table", "deployments")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "DeploymentEntity")
 model DeploymentEntity {
   @doc("Deployment ID")

@@ -12,4 +12,3 @@ import "./span.tsp";
 import "./logs.tsp";
 import "./metrics.tsp";
 import "./profiles.tsp";
-import "./storage.tsp";

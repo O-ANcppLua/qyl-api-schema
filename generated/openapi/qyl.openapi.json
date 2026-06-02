@@ -4625,7 +4625,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Storage.ProfileRecord"
+                    "$ref": "#/components/schemas/OTel.Profiles.Profile"
                   }
                 }
               }
@@ -4725,7 +4725,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Storage.ProfileRecord"
+                    "$ref": "#/components/schemas/OTel.Profiles.Profile"
                   }
                 }
               }
@@ -4799,7 +4799,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Storage.ProfileRecord"
+                    "$ref": "#/components/schemas/OTel.Profiles.Profile"
                   }
                 }
               }
@@ -4857,7 +4857,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Storage.ProfileRecord"
+                  "$ref": "#/components/schemas/OTel.Profiles.Profile"
                 }
               }
             }
@@ -6960,7 +6960,7 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Storage.SpanRecord"
+                        "$ref": "#/components/schemas/OTel.Traces.Span"
                       },
                       "description": "List of items in this page"
                     },
@@ -8375,37 +8375,26 @@
         ],
         "description": "Primitive attribute value types supported by OpenTelemetry"
       },
-      "Common.CostUsd": {
-        "type": "number",
-        "format": "double",
-        "minimum": 0,
-        "description": "Cost in USD (floating point)",
-        "x-csharp-type": "double",
-        "x-duckdb-type": "DOUBLE"
-      },
       "Common.Count": {
         "type": "integer",
         "format": "int64",
         "minimum": 0,
         "description": "Generic non-negative counter",
-        "x-csharp-type": "long",
-        "x-duckdb-type": "BIGINT"
+        "x-csharp-type": "long"
       },
       "Common.DurationMs": {
         "type": "number",
         "format": "double",
         "minimum": 0,
         "description": "Duration in milliseconds",
-        "x-csharp-type": "double",
-        "x-duckdb-type": "DOUBLE"
+        "x-csharp-type": "double"
       },
       "Common.DurationNs": {
         "type": "integer",
         "format": "int64",
         "minimum": 0,
         "description": "Duration in nanoseconds",
-        "x-csharp-type": "long",
-        "x-duckdb-type": "UBIGINT"
+        "x-csharp-type": "long"
       },
       "Common.DurationS": {
         "type": "number",
@@ -8736,8 +8725,7 @@
         "minimum": 0,
         "maximum": 100,
         "description": "Percentage value (0.0 to 100.0)",
-        "x-csharp-type": "double",
-        "x-duckdb-type": "DOUBLE"
+        "x-csharp-type": "double"
       },
       "Common.Ratio": {
         "type": "number",
@@ -8745,8 +8733,7 @@
         "minimum": 0,
         "maximum": 1,
         "description": "Ratio value (0.0 to 1.0)",
-        "x-csharp-type": "double",
-        "x-duckdb-type": "DOUBLE"
+        "x-csharp-type": "double"
       },
       "Common.SemVer": {
         "type": "string",
@@ -8762,8 +8749,7 @@
         "maxLength": 128,
         "description": "Unique session identifier",
         "x-csharp-type": "SessionId",
-        "x-csharp-struct": true,
-        "x-duckdb-type": "VARCHAR(128)"
+        "x-csharp-struct": true
       },
       "Common.SpanId": {
         "type": "string",
@@ -8775,25 +8761,14 @@
           "b7ad6b7169203331"
         ],
         "x-csharp-type": "SpanId",
-        "x-csharp-struct": true,
-        "x-duckdb-type": "VARCHAR(16)"
-      },
-      "Common.Temperature": {
-        "type": "number",
-        "format": "double",
-        "minimum": 0,
-        "maximum": 2,
-        "description": "Temperature setting for LLM requests (0.0-2.0)",
-        "x-csharp-type": "double",
-        "x-duckdb-type": "DOUBLE"
+        "x-csharp-struct": true
       },
       "Common.TokenCount": {
         "type": "integer",
         "format": "int64",
         "minimum": 0,
         "description": "Token count (for LLM operations)",
-        "x-csharp-type": "long",
-        "x-duckdb-type": "BIGINT"
+        "x-csharp-type": "long"
       },
       "Common.TraceId": {
         "type": "string",
@@ -8805,8 +8780,7 @@
           "0af7651916cd43dd8448eb211c80319c"
         ],
         "x-csharp-type": "TraceId",
-        "x-csharp-struct": true,
-        "x-duckdb-type": "VARCHAR(32)"
+        "x-csharp-struct": true
       },
       "Common.TraceState": {
         "type": "string",
@@ -8885,8 +8859,7 @@
           },
           "context_json": {
             "type": "string",
-            "description": "Additional context",
-            "x-duckdb-type": "JSON"
+            "description": "Additional context"
           },
           "status": {
             "allOf": [
@@ -8921,8 +8894,7 @@
           }
         },
         "description": "Triggered alert instance",
-        "x-csharp-type": "AlertFiringEntity",
-        "x-duckdb-table": "alert_firings"
+        "x-csharp-type": "AlertFiringEntity"
       },
       "Domains.Alerting.AlertFiringStatus": {
         "type": "string",
@@ -8977,13 +8949,11 @@
           },
           "condition_json": {
             "type": "string",
-            "description": "Condition definition",
-            "x-duckdb-type": "JSON"
+            "description": "Condition definition"
           },
           "threshold_json": {
             "type": "string",
-            "description": "Threshold definition",
-            "x-duckdb-type": "JSON"
+            "description": "Threshold definition"
           },
           "target_type": {
             "type": "string",
@@ -8991,8 +8961,7 @@
           },
           "target_filter_json": {
             "type": "string",
-            "description": "Target filter",
-            "x-duckdb-type": "JSON"
+            "description": "Target filter"
           },
           "severity": {
             "allOf": [
@@ -9009,8 +8978,7 @@
           },
           "notification_channels_json": {
             "type": "string",
-            "description": "Notification channels",
-            "x-duckdb-type": "JSON"
+            "description": "Notification channels"
           },
           "enabled": {
             "type": "boolean",
@@ -9038,8 +9006,7 @@
           }
         },
         "description": "Alert rule definition",
-        "x-csharp-type": "AlertRuleEntity",
-        "x-duckdb-table": "alert_rules"
+        "x-csharp-type": "AlertRuleEntity"
       },
       "Domains.Alerting.AlertRuleType": {
         "type": "string",
@@ -9145,8 +9112,7 @@
           }
         },
         "description": "AI-assisted fix attempt",
-        "x-csharp-type": "FixRunEntity",
-        "x-duckdb-table": "fix_runs"
+        "x-csharp-type": "FixRunEntity"
       },
       "Domains.Alerting.FixRunStatus": {
         "type": "string",
@@ -9196,8 +9162,7 @@
           }
         },
         "description": "Code generation job entry",
-        "x-csharp-type": "GenerationJobEntity",
-        "x-duckdb-table": "generation_jobs"
+        "x-csharp-type": "GenerationJobEntity"
       },
       "Domains.Configurator.CreateGenerationProfileEntity": {
         "type": "object",
@@ -9231,18 +9196,15 @@
           },
           "features_json": {
             "type": "string",
-            "description": "Enabled features/modules",
-            "x-duckdb-type": "JSON"
+            "description": "Enabled features/modules"
           },
           "template_overrides_json": {
             "type": "string",
-            "description": "Template customizations",
-            "x-duckdb-type": "JSON"
+            "description": "Template customizations"
           }
         },
         "description": "Named instrumentation profile for code generation",
-        "x-csharp-type": "GenerationProfileEntity",
-        "x-duckdb-table": "generation_profiles"
+        "x-csharp-type": "GenerationProfileEntity"
       },
       "Domains.Configurator.GenerationJobEntity": {
         "type": "object",
@@ -9338,8 +9300,7 @@
           }
         },
         "description": "Code generation job entry",
-        "x-csharp-type": "GenerationJobEntity",
-        "x-duckdb-table": "generation_jobs"
+        "x-csharp-type": "GenerationJobEntity"
       },
       "Domains.Configurator.GenerationJobType": {
         "type": "string",
@@ -9397,13 +9358,11 @@
           },
           "features_json": {
             "type": "string",
-            "description": "Enabled features/modules",
-            "x-duckdb-type": "JSON"
+            "description": "Enabled features/modules"
           },
           "template_overrides_json": {
             "type": "string",
-            "description": "Template customizations",
-            "x-duckdb-type": "JSON"
+            "description": "Template customizations"
           },
           "is_default": {
             "type": "boolean",
@@ -9423,8 +9382,7 @@
           }
         },
         "description": "Named instrumentation profile for code generation",
-        "x-csharp-type": "GenerationProfileEntity",
-        "x-duckdb-table": "generation_profiles"
+        "x-csharp-type": "GenerationProfileEntity"
       },
       "Domains.Configurator.GenerationSelectionEntity": {
         "type": "object",
@@ -9466,8 +9424,7 @@
           },
           "config_json": {
             "type": "string",
-            "description": "Selection-specific configuration",
-            "x-duckdb-type": "JSON"
+            "description": "Selection-specific configuration"
           },
           "created_at": {
             "type": "string",
@@ -9483,8 +9440,7 @@
           }
         },
         "description": "Selected semconv/feature per workspace for code generation",
-        "x-csharp-type": "GenerationSelectionEntity",
-        "x-duckdb-table": "generation_selections"
+        "x-csharp-type": "GenerationSelectionEntity"
       },
       "Domains.Configurator.JobStatus": {
         "type": "string",
@@ -9593,8 +9549,7 @@
           },
           "data_json": {
             "type": "string",
-            "description": "Breadcrumb data",
-            "x-duckdb-type": "JSON"
+            "description": "Breadcrumb data"
           },
           "timestamp": {
             "type": "string",
@@ -9603,8 +9558,7 @@
           }
         },
         "description": "Pre-error context breadcrumb",
-        "x-csharp-type": "ErrorBreadcrumbEntity",
-        "x-duckdb-table": "error_breadcrumbs"
+        "x-csharp-type": "ErrorBreadcrumbEntity"
       },
       "Domains.Issues.ErrorIssueEntity": {
         "type": "object",
@@ -9750,13 +9704,11 @@
           "tags_json": {
             "type": "string",
             "description": "Issue tags",
-            "x-duckdb-type": "JSON",
             "readOnly": true
           },
           "metadata_json": {
             "type": "string",
             "description": "Issue metadata",
-            "x-duckdb-type": "JSON",
             "readOnly": true
           },
           "created_at": {
@@ -9773,8 +9725,7 @@
           }
         },
         "description": "Error issue aggregate with lifecycle tracking",
-        "x-csharp-type": "ErrorIssueEntity",
-        "x-duckdb-table": "error_issues"
+        "x-csharp-type": "ErrorIssueEntity"
       },
       "Domains.Issues.ErrorIssueEntityMergePatchUpdate": {
         "type": "object",
@@ -9808,8 +9759,7 @@
           }
         },
         "description": "Error issue aggregate with lifecycle tracking",
-        "x-csharp-type": "ErrorIssueEntity",
-        "x-duckdb-table": "error_issues"
+        "x-csharp-type": "ErrorIssueEntity"
       },
       "Domains.Issues.ErrorIssueEventEntity": {
         "type": "object",
@@ -9845,8 +9795,7 @@
           },
           "stack_frames_json": {
             "type": "string",
-            "description": "Parsed stack frames",
-            "x-duckdb-type": "JSON"
+            "description": "Parsed stack frames"
           },
           "environment": {
             "type": "string",
@@ -9894,13 +9843,11 @@
           },
           "context_json": {
             "type": "string",
-            "description": "Additional context data",
-            "x-duckdb-type": "JSON"
+            "description": "Additional context data"
           },
           "tags_json": {
             "type": "string",
-            "description": "Event tags",
-            "x-duckdb-type": "JSON"
+            "description": "Event tags"
           },
           "timestamp": {
             "type": "string",
@@ -9909,8 +9856,7 @@
           }
         },
         "description": "Individual error occurrence linked to an issue",
-        "x-csharp-type": "ErrorIssueEventEntity",
-        "x-duckdb-table": "error_issue_events"
+        "x-csharp-type": "ErrorIssueEventEntity"
       },
       "Domains.Issues.IssueLevel": {
         "type": "string",
@@ -10181,8 +10127,7 @@
           }
         },
         "description": "Error entity for tracking and analysis",
-        "x-csharp-type": "ErrorEntity",
-        "x-duckdb-table": "errors"
+        "x-csharp-type": "ErrorEntity"
       },
       "Domains.Observe.Error.ErrorEntityMergePatchUpdate": {
         "type": "object",
@@ -10219,8 +10164,7 @@
           }
         },
         "description": "Error entity for tracking and analysis",
-        "x-csharp-type": "ErrorEntity",
-        "x-duckdb-table": "errors"
+        "x-csharp-type": "ErrorEntity"
       },
       "Domains.Observe.Error.ErrorServiceStats": {
         "type": "object",
@@ -10950,8 +10894,7 @@
           }
         },
         "description": "Complete session entity with aggregated data",
-        "x-csharp-type": "SessionEntity",
-        "x-duckdb-table": "session_entities"
+        "x-csharp-type": "SessionEntity"
       },
       "Domains.Observe.Session.SessionGenAiUsage": {
         "type": "object",
@@ -11181,8 +11124,7 @@
           }
         },
         "description": "Complete deployment record",
-        "x-csharp-type": "DeploymentEntity",
-        "x-duckdb-table": "deployments"
+        "x-csharp-type": "DeploymentEntity"
       },
       "Domains.Ops.Deployment.DeploymentEntity": {
         "type": "object",
@@ -11301,8 +11243,7 @@
           }
         },
         "description": "Complete deployment record",
-        "x-csharp-type": "DeploymentEntity",
-        "x-duckdb-table": "deployments"
+        "x-csharp-type": "DeploymentEntity"
       },
       "Domains.Ops.Deployment.DeploymentEntityMergePatchUpdate": {
         "type": "object",
@@ -11340,8 +11281,7 @@
           }
         },
         "description": "Complete deployment record",
-        "x-csharp-type": "DeploymentEntity",
-        "x-duckdb-table": "deployments"
+        "x-csharp-type": "DeploymentEntity"
       },
       "Domains.Ops.Deployment.DeploymentEnvironment": {
         "type": "string",
@@ -11611,8 +11551,7 @@
           },
           "payload_json": {
             "type": "string",
-            "description": "Event payload",
-            "x-duckdb-type": "JSON"
+            "description": "Event payload"
           },
           "sequence_number": {
             "type": "integer",
@@ -11634,8 +11573,7 @@
           }
         },
         "description": "Append-only workflow event",
-        "x-csharp-type": "WorkflowEventEntity",
-        "x-duckdb-table": "workflow_events"
+        "x-csharp-type": "WorkflowEventEntity"
       },
       "Domains.Workflow.WorkflowNodeEntity": {
         "type": "object",
@@ -11683,13 +11621,11 @@
           },
           "input_json": {
             "type": "string",
-            "description": "Node input data",
-            "x-duckdb-type": "JSON"
+            "description": "Node input data"
           },
           "output_json": {
             "type": "string",
-            "description": "Node output data",
-            "x-duckdb-type": "JSON"
+            "description": "Node output data"
           },
           "status": {
             "allOf": [
@@ -11740,8 +11676,7 @@
           }
         },
         "description": "Individual DAG node execution",
-        "x-csharp-type": "WorkflowNodeEntity",
-        "x-duckdb-table": "workflow_nodes"
+        "x-csharp-type": "WorkflowNodeEntity"
       },
       "Domains.Workflow.WorkflowNodeType": {
         "type": "string",
@@ -11801,13 +11736,11 @@
           },
           "input_json": {
             "type": "string",
-            "description": "Run input data",
-            "x-duckdb-type": "JSON"
+            "description": "Run input data"
           },
           "output_json": {
             "type": "string",
-            "description": "Run output data",
-            "x-duckdb-type": "JSON"
+            "description": "Run output data"
           },
           "status": {
             "allOf": [
@@ -11851,8 +11784,7 @@
           }
         },
         "description": "Top-level workflow execution",
-        "x-csharp-type": "WorkflowRunEntity",
-        "x-duckdb-table": "workflow_runs"
+        "x-csharp-type": "WorkflowRunEntity"
       },
       "Domains.Workflow.WorkflowRunStatus": {
         "type": "string",
@@ -11900,8 +11832,7 @@
           }
         },
         "description": "Project registry: top-level organizational unit",
-        "x-csharp-type": "ProjectEntity",
-        "x-duckdb-table": "projects"
+        "x-csharp-type": "ProjectEntity"
       },
       "Domains.Workspace.HandshakeSessionEntity": {
         "type": "object",
@@ -11964,8 +11895,7 @@
           }
         },
         "description": "Browser-local handshake session for workspace verification",
-        "x-csharp-type": "HandshakeSessionEntity",
-        "x-duckdb-table": "handshake_sessions"
+        "x-csharp-type": "HandshakeSessionEntity"
       },
       "Domains.Workspace.HandshakeState": {
         "type": "string",
@@ -12024,8 +11954,7 @@
           }
         },
         "description": "Project registry: top-level organizational unit",
-        "x-csharp-type": "ProjectEntity",
-        "x-duckdb-table": "projects"
+        "x-csharp-type": "ProjectEntity"
       },
       "Domains.Workspace.ProjectEnvironmentEntity": {
         "type": "object",
@@ -12070,8 +11999,7 @@
           }
         },
         "description": "Environment row per project (dev, staging, prod)",
-        "x-csharp-type": "ProjectEnvironmentEntity",
-        "x-duckdb-table": "project_environments"
+        "x-csharp-type": "ProjectEnvironmentEntity"
       },
       "Domains.Workspace.WorkspaceEnvelopeEntity": {
         "type": "object",
@@ -12132,8 +12060,7 @@
           },
           "config_json": {
             "type": "string",
-            "description": "Workspace-level configuration overrides",
-            "x-duckdb-type": "JSON"
+            "description": "Workspace-level configuration overrides"
           },
           "created_at": {
             "type": "string",
@@ -12147,8 +12074,7 @@
           }
         },
         "description": "Workspace envelope: the local-first workspace unit",
-        "x-csharp-type": "WorkspaceEnvelopeEntity",
-        "x-duckdb-table": "workspace_envelopes"
+        "x-csharp-type": "WorkspaceEnvelopeEntity"
       },
       "Domains.Workspace.WorkspaceStatus": {
         "type": "string",
@@ -12575,6 +12501,15 @@
           "summary"
         ],
         "description": "Metric data type"
+      },
+      "OTel.Enums.OriginalPayloadFormat": {
+        "type": "string",
+        "enum": [
+          "pprof",
+          "jfr",
+          "linux_perf"
+        ],
+        "description": "Original payload format for profile data"
       },
       "OTel.Enums.SeverityNumber": {
         "type": "number",
@@ -13553,6 +13488,350 @@
         ],
         "description": "Summary data point"
       },
+      "OTel.Profiles.Profile": {
+        "type": "object",
+        "required": [
+          "profile_id",
+          "time_unix_nano",
+          "duration_nano",
+          "resource"
+        ],
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "description": "Unique profile identifier (16 hex chars)"
+          },
+          "sample_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OTel.Profiles.ProfileValueType"
+              }
+            ],
+            "description": "Sample type describing what was measured"
+          },
+          "samples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileSample"
+            },
+            "description": "Profiling samples"
+          },
+          "time_unix_nano": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Profile start timestamp in nanoseconds since epoch"
+          },
+          "duration_nano": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Profile duration in nanoseconds"
+          },
+          "period_type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OTel.Profiles.ProfileValueType"
+              }
+            ],
+            "description": "Sampling period type"
+          },
+          "period": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Sampling period value"
+          },
+          "original_payload_format": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OTel.Enums.OriginalPayloadFormat"
+              }
+            ],
+            "description": "Original payload format (pprof, jfr, linux_perf)"
+          },
+          "original_payload": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "description": "Original payload bytes (base64 encoded, opaque — not parsed)"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Common.Attribute"
+            },
+            "description": "Profile attributes"
+          },
+          "dropped_attributes_count": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.Count"
+              }
+            ],
+            "description": "Dropped attributes count"
+          },
+          "resource": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OTel.Resource.Resource"
+              }
+            ],
+            "description": "Resource describing the entity that produced this profile"
+          },
+          "instrumentation_scope": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.InstrumentationScope"
+              }
+            ],
+            "description": "Instrumentation scope"
+          },
+          "string_table": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "String table for index-based lookups"
+          },
+          "function_table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileFunction"
+            },
+            "description": "Function table"
+          },
+          "location_table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileLocation"
+            },
+            "description": "Location table"
+          },
+          "mapping_table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileMapping"
+            },
+            "description": "Mapping table (memory-mapped binaries)"
+          },
+          "link_table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileLink"
+            },
+            "description": "Link table for cross-signal correlation"
+          },
+          "stack_table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileStack"
+            },
+            "description": "Stack table (ordered location sequences)"
+          }
+        },
+        "description": "OpenTelemetry Profile representing a continuous profiling snapshot"
+      },
+      "OTel.Profiles.ProfileFunction": {
+        "type": "object",
+        "properties": {
+          "name_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Function name string index"
+          },
+          "system_name_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "System/mangled function name string index"
+          },
+          "filename_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Source filename string index"
+          },
+          "start_line": {
+            "type": "integer",
+            "format": "int64",
+            "description": "First line number of the function in source"
+          }
+        },
+        "description": "Function identity in a profiled binary"
+      },
+      "OTel.Profiles.ProfileLine": {
+        "type": "object",
+        "properties": {
+          "function_index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Function index into function table"
+          },
+          "line": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Source line number"
+          },
+          "column": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Source column number"
+          }
+        },
+        "description": "Source line within a location"
+      },
+      "OTel.Profiles.ProfileLink": {
+        "type": "object",
+        "properties": {
+          "trace_id": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.TraceId"
+              }
+            ],
+            "description": "Linked trace ID (16 bytes, W3C format)"
+          },
+          "span_id": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Common.SpanId"
+              }
+            ],
+            "description": "Linked span ID (8 bytes)"
+          }
+        },
+        "description": "Cross-signal link from profile sample to trace/span"
+      },
+      "OTel.Profiles.ProfileLocation": {
+        "type": "object",
+        "properties": {
+          "mapping_index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Mapping index into mapping table"
+          },
+          "address": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Instruction address (program counter)"
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OTel.Profiles.ProfileLine"
+            },
+            "description": "Source lines at this location"
+          },
+          "attribute_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "Attribute indices"
+          }
+        },
+        "description": "Code location within a profiled binary"
+      },
+      "OTel.Profiles.ProfileMapping": {
+        "type": "object",
+        "properties": {
+          "memory_start": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Start address of the mapping in virtual memory"
+          },
+          "memory_limit": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Limit address (exclusive) of the mapping"
+          },
+          "file_offset": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Offset within the mapped file"
+          },
+          "filename_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Filename string index of the mapped binary"
+          },
+          "attribute_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "Attribute indices"
+          }
+        },
+        "description": "Memory mapping for a loaded binary or shared library"
+      },
+      "OTel.Profiles.ProfileSample": {
+        "type": "object",
+        "properties": {
+          "stack_index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Stack index into stack table"
+          },
+          "attribute_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "Attribute indices into attribute table"
+          },
+          "link_index": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Link index into link table for cross-signal correlation"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "Sample values (one per sample type)"
+          },
+          "timestamps_unix_nano": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "Timestamps for each value in nanoseconds since epoch"
+          }
+        },
+        "description": "Individual profiling sample"
+      },
+      "OTel.Profiles.ProfileStack": {
+        "type": "object",
+        "properties": {
+          "location_indices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "description": "Location indices from leaf (index 0) to root"
+          }
+        },
+        "description": "Ordered sequence of location indices forming a call stack"
+      },
+      "OTel.Profiles.ProfileValueType": {
+        "type": "object",
+        "properties": {
+          "type_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Type string index into string table"
+          },
+          "unit_strindex": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Unit string index into string table"
+          }
+        },
+        "description": "Sample type descriptor (what was measured and in what unit)"
+      },
       "OTel.Resource.CloudProvider": {
         "type": "string",
         "enum": [
@@ -14286,362 +14565,6 @@
           }
         },
         "description": "Service information"
-      },
-      "Storage.ProfileRecord": {
-        "type": "object",
-        "required": [
-          "profileId",
-          "timeUnixNano",
-          "durationNano",
-          "sampleCount"
-        ],
-        "properties": {
-          "profileId": {
-            "type": "string",
-            "description": "Unique profile identifier",
-            "x-duckdb-primary-key": true,
-            "x-duckdb-column": "profile_id"
-          },
-          "traceId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.TraceId"
-              }
-            ],
-            "description": "Correlated trace ID (from Link table)",
-            "x-duckdb-index": "idx_profiles_trace_id",
-            "x-duckdb-column": "trace_id"
-          },
-          "spanId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.SpanId"
-              }
-            ],
-            "description": "Correlated span ID (from Link table)",
-            "x-duckdb-column": "span_id"
-          },
-          "sessionId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.SessionId"
-              }
-            ],
-            "description": "Session identifier for grouping related profiles",
-            "x-duckdb-index": "idx_profiles_session_id",
-            "x-duckdb-column": "session_id"
-          },
-          "timeUnixNano": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Profile start timestamp in nanoseconds since epoch",
-            "x-duckdb-index": "idx_profiles_time",
-            "x-duckdb-column": "time_unix_nano"
-          },
-          "durationNano": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Profile duration in nanoseconds",
-            "x-duckdb-column": "duration_nano"
-          },
-          "sampleCount": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Number of samples in this profile",
-            "x-duckdb-column": "sample_count"
-          },
-          "sampleType": {
-            "type": "string",
-            "description": "Sample type (e.g., cpu, alloc_objects, wall)",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_profiles_sample_type",
-            "x-duckdb-column": "sample_type"
-          },
-          "sampleUnit": {
-            "type": "string",
-            "description": "Sample unit (e.g., nanoseconds, bytes, count)",
-            "x-duckdb-column": "sample_unit"
-          },
-          "originalPayloadFormat": {
-            "type": "string",
-            "description": "Original payload format",
-            "x-duckdb-column": "original_payload_format"
-          },
-          "serviceName": {
-            "type": "string",
-            "description": "Service name from resource attributes",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_profiles_service",
-            "x-duckdb-column": "service_name"
-          },
-          "profileFrameType": {
-            "type": "string",
-            "description": "Profile frame type (dotnet, jvm, cpython, etc.)",
-            "x-promoted": true,
-            "x-duckdb-column": "profile_frame_type"
-          },
-          "attributesJson": {
-            "type": "string",
-            "description": "Profile attributes as JSON",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "attributes_json"
-          },
-          "resourceJson": {
-            "type": "string",
-            "description": "Resource attributes as JSON",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "resource_json"
-          },
-          "profileDataJson": {
-            "type": "string",
-            "description": "Full profile structure as JSON blob (denormalized for single-query access)",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "profile_data_json"
-          },
-          "schemaUrl": {
-            "type": "string",
-            "description": "OTel semantic convention schema URL",
-            "x-duckdb-type": "VARCHAR(256)",
-            "x-duckdb-column": "schema_url"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Row creation timestamp",
-            "x-internal": true,
-            "x-duckdb-type": "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-            "x-duckdb-column": "created_at"
-          }
-        },
-        "description": "OpenTelemetry profile record for storage and query",
-        "x-csharp-type": "ProfileStorageRow",
-        "x-duckdb-table": "profiles"
-      },
-      "Storage.SpanRecord": {
-        "type": "object",
-        "required": [
-          "spanId",
-          "traceId",
-          "name",
-          "kind",
-          "startTimeUnixNano",
-          "endTimeUnixNano",
-          "durationNs",
-          "statusCode"
-        ],
-        "properties": {
-          "spanId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.SpanId"
-              }
-            ],
-            "description": "Unique span identifier",
-            "x-duckdb-primary-key": true,
-            "x-duckdb-column": "span_id"
-          },
-          "traceId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.TraceId"
-              }
-            ],
-            "description": "Trace identifier",
-            "x-duckdb-index": "idx_spans_trace_id",
-            "x-duckdb-column": "trace_id"
-          },
-          "parentSpanId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.SpanId"
-              }
-            ],
-            "description": "Parent span identifier (null for root spans)",
-            "x-duckdb-column": "parent_span_id"
-          },
-          "sessionId": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.SessionId"
-              }
-            ],
-            "description": "Session identifier for grouping related traces",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_spans_session_id",
-            "x-duckdb-column": "session_id"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Human-readable span name",
-            "x-duckdb-column": "name"
-          },
-          "kind": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OTel.Enums.SpanKind"
-              }
-            ],
-            "description": "Span kind",
-            "x-duckdb-column": "kind"
-          },
-          "startTimeUnixNano": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Start timestamp in nanoseconds since epoch",
-            "x-duckdb-index": "idx_spans_start_time",
-            "x-duckdb-column": "start_time_unix_nano"
-          },
-          "endTimeUnixNano": {
-            "type": "integer",
-            "format": "int64",
-            "description": "End timestamp in nanoseconds since epoch",
-            "x-duckdb-column": "end_time_unix_nano"
-          },
-          "durationNs": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.DurationNs"
-              }
-            ],
-            "description": "Duration in nanoseconds",
-            "x-duckdb-column": "duration_ns"
-          },
-          "statusCode": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OTel.Enums.SpanStatusCode"
-              }
-            ],
-            "description": "Span status code",
-            "x-duckdb-column": "status_code"
-          },
-          "statusMessage": {
-            "type": "string",
-            "description": "Status message (only for ERROR status)",
-            "x-duckdb-column": "status_message"
-          },
-          "serviceName": {
-            "type": "string",
-            "description": "Service name from resource attributes",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_spans_service_name",
-            "x-duckdb-column": "service_name"
-          },
-          "genAiProviderName": {
-            "type": "string",
-            "description": "GenAI provider name (e.g., openai, anthropic) - OTel 1.40: gen_ai.provider.name",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_spans_gen_ai_provider_name",
-            "x-duckdb-column": "gen_ai_provider_name"
-          },
-          "genAiRequestModel": {
-            "type": "string",
-            "description": "Requested model name",
-            "x-promoted": true,
-            "x-duckdb-index": "idx_spans_gen_ai_request_model",
-            "x-duckdb-column": "gen_ai_request_model"
-          },
-          "genAiResponseModel": {
-            "type": "string",
-            "description": "Actual response model name",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_response_model"
-          },
-          "genAiInputTokens": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.TokenCount"
-              }
-            ],
-            "description": "Input/prompt tokens",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_input_tokens"
-          },
-          "genAiOutputTokens": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.TokenCount"
-              }
-            ],
-            "description": "Output/completion tokens",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_output_tokens"
-          },
-          "genAiTemperature": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.Temperature"
-              }
-            ],
-            "description": "Request temperature",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_temperature"
-          },
-          "genAiStopReason": {
-            "type": "string",
-            "description": "Response finish reason",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_stop_reason"
-          },
-          "genAiToolName": {
-            "type": "string",
-            "description": "Tool name for tool calls",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_tool_name"
-          },
-          "genAiToolCallId": {
-            "type": "string",
-            "description": "Tool call ID",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_tool_call_id"
-          },
-          "genAiCostUsd": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Common.CostUsd"
-              }
-            ],
-            "description": "Estimated cost in USD",
-            "x-promoted": true,
-            "x-duckdb-column": "gen_ai_cost_usd"
-          },
-          "attributesJson": {
-            "type": "string",
-            "description": "All span attributes as JSON",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "attributes_json"
-          },
-          "resourceJson": {
-            "type": "string",
-            "description": "Resource attributes as JSON",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "resource_json"
-          },
-          "baggageJson": {
-            "type": "string",
-            "description": "W3C Baggage key-value pairs as JSON for cross-cutting concern propagation",
-            "x-duckdb-type": "VARCHAR",
-            "x-duckdb-column": "baggage_json"
-          },
-          "schemaUrl": {
-            "type": "string",
-            "description": "OTel semantic convention schema URL (e.g., https://opentelemetry.io/schemas/1.40.0)",
-            "x-duckdb-type": "VARCHAR(256)",
-            "x-duckdb-column": "schema_url"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Row creation timestamp",
-            "x-internal": true,
-            "x-duckdb-type": "TIMESTAMP DEFAULT now()",
-            "x-duckdb-column": "created_at"
-          }
-        },
-        "description": "OpenTelemetry span record for storage and query",
-        "x-csharp-type": "SpanRecord",
-        "x-duckdb-table": "spans"
       },
       "Streaming.DeploymentStreamEvent": {
         "type": "object",

@@ -122,13 +122,6 @@
           "type": "boolean",
           "description": "Fail the build if emit-reproducibility verification detects drift"
         },
-        "Emitters": {
-          "type": "array",
-          "description": "Emitter names to invoke (default: csharp, duckdb, ts-types, lint)",
-          "items": {
-            "type": "string"
-          }
-        },
         "OtelKeysPackage": {
           "type": "string",
           "description": "npm package name of the upstream keys provider (default: '@ancplua/typespec-otel-semconv')"

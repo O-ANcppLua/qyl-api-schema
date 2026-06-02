@@ -27,7 +27,7 @@ sealed class Build : NukeBuild, IDomainConventionsApi
     public static int Main() => Execute<Build>(x => ((IDomainConventionsApi)x).EmitAll);
 
     /// <summary>
-    /// Directory containing emitter outputs (<c>Artifacts/emit/{csharp,duckdb,ts-types,lint}</c>).
+    /// Directory containing emitter outputs (<c>Artifacts/emit/{csharp,ts-types,lint}</c>).
     /// Overrides the <see cref="IDomainConventionsApi.EmitOutputDir"/> default of <c>./emitters</c>
     /// to keep generated artifacts out of the source-tree <c>emitters/</c> directory
     /// (which holds emitter source code, not outputs).
@@ -35,6 +35,8 @@ sealed class Build : NukeBuild, IDomainConventionsApi
     AbsolutePath IDomainConventionsApi.EmitOutputDir =>
         ((IDomainConventionsApi)this).TryGetValue(() => ((IDomainConventionsApi)this).EmitOutputDir)
         ?? RootDirectory / "Artifacts" / "emit";
+
+    string[] IDomainConventionsApi.Emitters => ["csharp", "ts-types", "lint"];
 
     AbsolutePath ArtifactsDir => RootDirectory / "Artifacts";
 
@@ -153,11 +155,6 @@ sealed class Build : NukeBuild, IDomainConventionsApi
         .DependsOn(((IDomainConventionsApi)this).CompileDomainSpec)
         .Executes(() => RunTypeSpecEmitter("@ancplua/typespec-emit-csharp", "csharp"));
 
-    Target IDomainConventionsApi.EmitDuckDb => _ => _
-        .Description("Run the DuckDB TypeSpec emitter into Artifacts/emit/duckdb.")
-        .DependsOn(((IDomainConventionsApi)this).CompileDomainSpec)
-        .Executes(() => RunTypeSpecEmitter("@ancplua/typespec-emit-duckdb", "duckdb"));
-
     Target IDomainConventionsApi.EmitTsTypes => _ => _
         .Description("Run the TypeScript-types TypeSpec emitter into Artifacts/emit/ts-types.")
         .DependsOn(((IDomainConventionsApi)this).CompileDomainSpec)
@@ -175,10 +172,9 @@ sealed class Build : NukeBuild, IDomainConventionsApi
         });
 
     Target IDomainConventionsApi.EmitAll => _ => _
-        .Description("Run all emitters: C#, DuckDB, TypeScript types, and conventions lint.")
+        .Description("Run all API contract emitters: C#, TypeScript types, and conventions lint.")
         .DependsOn(
             ((IDomainConventionsApi)this).EmitCSharp,
-            ((IDomainConventionsApi)this).EmitDuckDb,
             ((IDomainConventionsApi)this).EmitTsTypes,
             ((IDomainConventionsApi)this).LintConventions);
 
@@ -251,9 +247,8 @@ sealed class Build : NukeBuild, IDomainConventionsApi
     static (string Package, string Subdir) ResolveEmitter(string emitter) => emitter switch
     {
         "csharp" => ("@ancplua/typespec-emit-csharp", "csharp"),
-        "duckdb" => ("@ancplua/typespec-emit-duckdb", "duckdb"),
         "ts-types" => ("@ancplua/typespec-emit-ts-types", "ts-types"),
-        _ => throw new ArgumentException($"Unknown emitter '{emitter}'. Expected: csharp, duckdb, ts-types (lint is a TypeSpec library, not an emitter).", nameof(emitter)),
+        _ => throw new ArgumentException($"Unknown emitter '{emitter}'. Expected: csharp, ts-types (lint is a TypeSpec library, not an emitter).", nameof(emitter)),
     };
 
     static (bool Ok, string? FirstDiff) DiffDirectoriesBytewise(AbsolutePath a, AbsolutePath b)

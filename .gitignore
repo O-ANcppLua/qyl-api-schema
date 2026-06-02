@@ -5,12 +5,8 @@ emitters/*/dist/
 
 # Local TypeSpec emitter outputs. Keep generated/otel-keys.gen.tsp tracked.
 generated/contracts/
-generated/duckdb/
 generated/ts-types/
-generated/csharp-client/
-generated/js-client/
 generated/json-schema/
-generated/csharp-server/
 
 # Nuke build host outputs.
 build/bin/

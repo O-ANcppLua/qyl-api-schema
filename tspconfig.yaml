@@ -1,10 +1,9 @@
 # qyl-api-schema TypeSpec configuration.
 # This repo is a contract source, not a server implementation. It emits schema
-# and DTO/storage artifacts only; qyl owns the running ASP.NET services.
+# and DTO artifacts only; qyl owns runtime services and physical storage schemas.
 
 emit:
   - "@ancplua/typespec-emit-csharp"
-  - "@ancplua/typespec-emit-duckdb"
   - "@ancplua/typespec-emit-ts-types"
   - "@typespec/openapi3"
   - "@typespec/json-schema"
@@ -12,9 +11,6 @@ emit:
 options:
   "@ancplua/typespec-emit-csharp":
     emitter-output-dir: "{project-root}/generated/contracts"
-
-  "@ancplua/typespec-emit-duckdb":
-    emitter-output-dir: "{project-root}/generated/duckdb"
 
   "@ancplua/typespec-emit-ts-types":
     emitter-output-dir: "{project-root}/generated/ts-types"

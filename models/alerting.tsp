@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Alerting;
 // =============================================================================
 
 @doc("Alert rule definition")
-@extension("x-duckdb-table", "alert_rules")
 @extension("x-csharp-type", "AlertRuleEntity")
 model AlertRuleEntity {
   @doc("Rule ID")
@@ -40,12 +39,10 @@ model AlertRuleEntity {
 
   @doc("Condition definition")
   @encodedName("application/json", "condition_json")
-  @extension("x-duckdb-type", "JSON")
   conditionJson: string;
 
   @doc("Threshold definition")
   @encodedName("application/json", "threshold_json")
-  @extension("x-duckdb-type", "JSON")
   thresholdJson?: string;
 
   @doc("Target type for evaluation")
@@ -54,7 +51,6 @@ model AlertRuleEntity {
 
   @doc("Target filter")
   @encodedName("application/json", "target_filter_json")
-  @extension("x-duckdb-type", "JSON")
   targetFilterJson?: string;
 
   @doc("Alert severity")
@@ -66,7 +62,6 @@ model AlertRuleEntity {
 
   @doc("Notification channels")
   @encodedName("application/json", "notification_channels_json")
-  @extension("x-duckdb-type", "JSON")
   notificationChannelsJson?: string;
 
   @doc("Whether rule is enabled")
@@ -130,7 +125,6 @@ enum AlertSeverity {
 // =============================================================================
 
 @doc("Triggered alert instance")
-@extension("x-duckdb-table", "alert_firings")
 @extension("x-csharp-type", "AlertFiringEntity")
 model AlertFiringEntity {
   @doc("Firing ID")
@@ -163,7 +157,6 @@ model AlertFiringEntity {
 
   @doc("Additional context")
   @encodedName("application/json", "context_json")
-  @extension("x-duckdb-type", "JSON")
   contextJson?: string;
 
   @doc("Firing status")
@@ -210,7 +203,6 @@ enum AlertFiringStatus {
 // =============================================================================
 
 @doc("AI-assisted fix attempt")
-@extension("x-duckdb-table", "fix_runs")
 @extension("x-csharp-type", "FixRunEntity")
 model FixRunEntity {
   @doc("Fix run ID")
@@ -309,7 +301,6 @@ enum FixRunStatus {
 // =============================================================================
 
 @doc("Fix run output artifact")
-@extension("x-duckdb-table", "fix_artifacts")
 @extension("x-csharp-type", "FixArtifactEntity")
 model FixArtifactEntity {
   @doc("Artifact ID")
@@ -344,7 +335,6 @@ model FixArtifactEntity {
 
   @doc("Artifact metadata")
   @encodedName("application/json", "metadata_json")
-  @extension("x-duckdb-type", "JSON")
   metadataJson?: string;
 
   @doc("Creation timestamp")
@@ -378,7 +368,6 @@ enum FixArtifactType {
 // =============================================================================
 
 @doc("Autofix policy gate decision")
-@extension("x-duckdb-table", "fix_policy_gates")
 @extension("x-csharp-type", "FixPolicyGateEntity")
 model FixPolicyGateEntity {
   @doc("Gate ID")
@@ -405,12 +394,10 @@ model FixPolicyGateEntity {
 
   @doc("Gate input data")
   @encodedName("application/json", "input_json")
-  @extension("x-duckdb-type", "JSON")
   inputJson?: string;
 
   @doc("Gate output data")
   @encodedName("application/json", "output_json")
-  @extension("x-duckdb-type", "JSON")
   outputJson?: string;
 
   @doc("Evaluation timestamp")

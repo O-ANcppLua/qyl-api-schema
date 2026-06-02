@@ -18,7 +18,6 @@ namespace Qyl.Api.Contracts.Domains.Issues;
 // =============================================================================
 
 @doc("Error issue aggregate with lifecycle tracking")
-@extension("x-duckdb-table", "error_issues")
 @extension("x-csharp-type", "ErrorIssueEntity")
 model ErrorIssueEntity {
   @doc("Issue ID")
@@ -120,13 +119,11 @@ model ErrorIssueEntity {
   @doc("Issue tags")
   @visibility(Lifecycle.Read)
   @encodedName("application/json", "tags_json")
-  @extension("x-duckdb-type", "JSON")
   tagsJson?: string;
 
   @doc("Issue metadata")
   @visibility(Lifecycle.Read)
   @encodedName("application/json", "metadata_json")
-  @extension("x-duckdb-type", "JSON")
   metadataJson?: string;
 
   @doc("Creation timestamp")
@@ -202,7 +199,6 @@ enum IssuePriority {
 // =============================================================================
 
 @doc("Individual error occurrence linked to an issue")
-@extension("x-duckdb-table", "error_issue_events")
 @extension("x-csharp-type", "ErrorIssueEventEntity")
 model ErrorIssueEventEntity {
   @doc("Event ID")
@@ -230,7 +226,6 @@ model ErrorIssueEventEntity {
 
   @doc("Parsed stack frames")
   @encodedName("application/json", "stack_frames_json")
-  @extension("x-duckdb-type", "JSON")
   stackFramesJson?: string;
 
   @doc("Environment (dev, staging, prod)")
@@ -274,12 +269,10 @@ model ErrorIssueEventEntity {
 
   @doc("Additional context data")
   @encodedName("application/json", "context_json")
-  @extension("x-duckdb-type", "JSON")
   contextJson?: string;
 
   @doc("Event tags")
   @encodedName("application/json", "tags_json")
-  @extension("x-duckdb-type", "JSON")
   tagsJson?: string;
 
   @doc("Event timestamp")
@@ -291,7 +284,6 @@ model ErrorIssueEventEntity {
 // =============================================================================
 
 @doc("Pre-error context breadcrumb")
-@extension("x-duckdb-table", "error_breadcrumbs")
 @extension("x-csharp-type", "ErrorBreadcrumbEntity")
 model ErrorBreadcrumbEntity {
   @doc("Breadcrumb ID")
@@ -317,7 +309,6 @@ model ErrorBreadcrumbEntity {
 
   @doc("Breadcrumb data")
   @encodedName("application/json", "data_json")
-  @extension("x-duckdb-type", "JSON")
   dataJson?: string;
 
   @doc("Breadcrumb timestamp")
@@ -356,7 +347,6 @@ enum BreadcrumbType {
 // =============================================================================
 
 @doc("Regression window across releases")
-@extension("x-duckdb-table", "error_regressions")
 @extension("x-csharp-type", "ErrorRegressionEntity")
 model ErrorRegressionEntity {
   @doc("Regression ID")
@@ -405,7 +395,6 @@ model ErrorRegressionEntity {
 // =============================================================================
 
 @doc("Code ownership rule for auto-triage")
-@extension("x-duckdb-table", "error_ownership")
 @extension("x-csharp-type", "ErrorOwnershipEntity")
 model ErrorOwnershipEntity {
   @doc("Rule ID")
@@ -448,7 +437,6 @@ model ErrorOwnershipEntity {
 // =============================================================================
 
 @doc("Deploy marker for issue auto-transition")
-@extension("x-duckdb-table", "error_release_markers")
 @extension("x-csharp-type", "ErrorReleaseMarkerEntity")
 model ErrorReleaseMarkerEntity {
   @doc("Marker ID")

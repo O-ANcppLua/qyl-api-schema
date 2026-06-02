@@ -1,22 +1,18 @@
 // =============================================================================
-// ANcpLua Emit Config — central augment-decorator file for the three ANcpLua
-// TypeSpec emitters (@ancplua/typespec-emit-csharp, emit-duckdb, emit-ts-types).
+// ANcpLua Emit Config — central augment-decorator file for the qyl API contract
+// TypeSpec emitters (@ancplua/typespec-emit-csharp, emit-ts-types).
 //
 // This file decorates the existing hand-authored TypeSpec models so the new
 // emitters know:
 //   - which C# namespace each model maps to (matches NamespaceRoutingTable.cs
 //     exactly, mirroring the current contract-drift outputs)
-//   - which models are DuckDB tables and what their SQL names are
 //   - which scalars are opaque branded string IDs on the TypeScript side
 //
-// Commit 5 of the TypeSpec-native-emitters mandate. Decoration-only: the old
-// @extension("x-duckdb-table", ...) / @extension("x-csharp-type", ...) calls
-// remain in place until Commit 10 deletes the old SchemaGenerator.cs path.
-// Both paths emit identical shapes until Commit 6 cuts tspconfig over.
+// Decoration-only: physical storage schema lives in qyl runtime mapping specs,
+// not in this API contract repository.
 // =============================================================================
 
 import "@ancplua/typespec-emit-csharp";
-import "@ancplua/typespec-emit-duckdb";
 import "@ancplua/typespec-emit-ts-types";
 
 import "./main.tsp";
@@ -35,7 +31,6 @@ import "./models/workspace.tsp";
 import "./intelligence/main.tsp";
 
 using Qyl.Api.Schema.Emit.CSharp;
-using Qyl.Api.Schema.Emit.DuckDb;
 using Qyl.Api.Schema.Emit.TsTypes;
 
 // -----------------------------------------------------------------------------
@@ -86,8 +81,6 @@ using Qyl.Api.Schema.Emit.TsTypes;
 @@csharpNamespace(Qyl.Api.Contracts.OTel.Profiles, "Qyl.Api.Contracts.OTel.Profiles");
 @@csharpNamespace(Qyl.Api.Contracts.OTel.Resource, "Qyl.Api.Contracts.OTel.Resource");
 @@csharpNamespace(Qyl.Api.Contracts.OTel.Traces, "Qyl.Api.Contracts.OTel.Traces");
-
-@@csharpNamespace(Qyl.Api.Contracts.Storage, "Qyl.Api.Contracts.Storage");
 
 // -----------------------------------------------------------------------------
 // TypeScript brands for opaque string IDs. Mandate §Commit-4 exact list plus

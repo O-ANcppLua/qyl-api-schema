@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Configurator;
 // =============================================================================
 
 @doc("Named instrumentation profile for code generation")
-@extension("x-duckdb-table", "generation_profiles")
 @extension("x-csharp-type", "GenerationProfileEntity")
 model GenerationProfileEntity {
   @doc("Profile ID")
@@ -56,13 +55,11 @@ model GenerationProfileEntity {
   @doc("Enabled features/modules")
   @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   @encodedName("application/json", "features_json")
-  @extension("x-duckdb-type", "JSON")
   featuresJson: string;
 
   @doc("Template customizations")
   @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   @encodedName("application/json", "template_overrides_json")
-  @extension("x-duckdb-type", "JSON")
   templateOverridesJson?: string;
 
   @doc("Whether this is the default profile")
@@ -86,7 +83,6 @@ model GenerationProfileEntity {
 // =============================================================================
 
 @doc("Selected semconv/feature per workspace for code generation")
-@extension("x-duckdb-table", "generation_selections")
 @extension("x-csharp-type", "GenerationSelectionEntity")
 model GenerationSelectionEntity {
   @doc("Selection ID")
@@ -121,7 +117,6 @@ model GenerationSelectionEntity {
   @doc("Selection-specific configuration")
   @visibility(Lifecycle.Read, Lifecycle.Create, Lifecycle.Update)
   @encodedName("application/json", "config_json")
-  @extension("x-duckdb-type", "JSON")
   configJson?: string;
 
   @doc("Creation timestamp")
@@ -140,7 +135,6 @@ model GenerationSelectionEntity {
 // =============================================================================
 
 @doc("Code generation job entry")
-@extension("x-duckdb-table", "generation_jobs")
 @extension("x-csharp-type", "GenerationJobEntity")
 model GenerationJobEntity {
   @doc("Job ID")
@@ -247,7 +241,6 @@ enum JobStatus {
 // =============================================================================
 
 @doc("Job lifecycle event")
-@extension("x-duckdb-table", "generation_job_events")
 @extension("x-csharp-type", "GenerationJobEventEntity")
 model GenerationJobEventEntity {
   @doc("Event ID")
@@ -267,7 +260,6 @@ model GenerationJobEventEntity {
 
   @doc("Event-specific data")
   @encodedName("application/json", "details_json")
-  @extension("x-duckdb-type", "JSON")
   detailsJson?: string;
 
   @doc("Event timestamp")
@@ -279,7 +271,6 @@ model GenerationJobEventEntity {
 // =============================================================================
 
 @doc("Attribute-to-column promotion from profiles")
-@extension("x-duckdb-table", "schema_promotions")
 @extension("x-csharp-type", "SchemaPromotionEntity")
 model SchemaPromotionEntity {
   @doc("Promotion ID")
@@ -339,7 +330,6 @@ enum PromotionStatus {
 // =============================================================================
 
 @doc("Schema adaptation DDL job")
-@extension("x-duckdb-table", "schema_change_jobs")
 @extension("x-csharp-type", "SchemaChangeJobEntity")
 model SchemaChangeJobEntity {
   @doc("Job ID")
@@ -413,7 +403,6 @@ enum SchemaChangeType {
 // =============================================================================
 
 @doc("DDL execution audit event")
-@extension("x-duckdb-table", "schema_change_events")
 @extension("x-csharp-type", "SchemaChangeEventEntity")
 model SchemaChangeEventEntity {
   @doc("Event ID")
@@ -433,7 +422,6 @@ model SchemaChangeEventEntity {
 
   @doc("Event-specific data")
   @encodedName("application/json", "details_json")
-  @extension("x-duckdb-type", "JSON")
   detailsJson?: string;
 
   @doc("Rows affected by DDL")

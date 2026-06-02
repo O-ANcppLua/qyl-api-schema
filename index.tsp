@@ -1,8 +1,8 @@
 // =============================================================================
 // @o-ancpplua/qyl-api-schema — published entry point
 // =============================================================================
-// Consumer-facing barrel. Mirrors main.tsp minus the emit-config / emit-duckdb
-// routing — those depend on local `file:` emitter packages
+// Consumer-facing barrel. Mirrors main.tsp minus local emit routing.
+// The local emitters depend on `file:` packages
 // (@ancplua/typespec-emit-*) which are not shipped to registry consumers and
 // would break TypeSpec import resolution.
 //
@@ -30,7 +30,6 @@ import "./otel/span.tsp";
 import "./otel/logs.tsp";
 import "./otel/metrics.tsp";
 import "./otel/profiles.tsp";
-import "./otel/storage.tsp";
 
 import "./models/genai.tsp";
 import "./models/http.tsp";

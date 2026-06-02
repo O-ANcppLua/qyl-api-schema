@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Workspace;
 // =============================================================================
 
 @doc("Project registry: top-level organizational unit")
-@extension("x-duckdb-table", "projects")
 @extension("x-csharp-type", "ProjectEntity")
 model ProjectEntity {
   @doc("Project ID")
@@ -58,7 +57,6 @@ model ProjectEntity {
 // =============================================================================
 
 @doc("Environment row per project (dev, staging, prod)")
-@extension("x-duckdb-table", "project_environments")
 @extension("x-csharp-type", "ProjectEnvironmentEntity")
 model ProjectEnvironmentEntity {
   @doc("Environment ID")
@@ -93,7 +91,6 @@ model ProjectEnvironmentEntity {
 // =============================================================================
 
 @doc("Local agent/daemon registry entry")
-@extension("x-duckdb-table", "local_nodes")
 @extension("x-csharp-type", "LocalNodeEntity")
 model LocalNodeEntity {
   @doc("Node ID")
@@ -156,7 +153,6 @@ enum NodeStatus {
 // =============================================================================
 
 @doc("Workspace envelope: the local-first workspace unit")
-@extension("x-duckdb-table", "workspace_envelopes")
 @extension("x-csharp-type", "WorkspaceEnvelopeEntity")
 model WorkspaceEnvelopeEntity {
   @doc("Workspace ID")
@@ -195,7 +191,6 @@ model WorkspaceEnvelopeEntity {
 
   @doc("Workspace-level configuration overrides")
   @encodedName("application/json", "config_json")
-  @extension("x-duckdb-type", "JSON")
   configJson?: string;
 
   @doc("Creation timestamp")
@@ -224,7 +219,6 @@ enum WorkspaceStatus {
 // =============================================================================
 
 @doc("Browser-local handshake session for workspace verification")
-@extension("x-duckdb-table", "handshake_sessions")
 @extension("x-csharp-type", "HandshakeSessionEntity")
 model HandshakeSessionEntity {
   @doc("Session ID")
@@ -286,7 +280,6 @@ enum HandshakeState {
 // =============================================================================
 
 @doc("Workspace-scoped API token metadata")
-@extension("x-duckdb-table", "workspace_tokens")
 @extension("x-csharp-type", "WorkspaceTokenEntity")
 model WorkspaceTokenEntity {
   @doc("Token ID")
@@ -310,7 +303,6 @@ model WorkspaceTokenEntity {
 
   @doc("Allowed scopes")
   @encodedName("application/json", "scopes_json")
-  @extension("x-duckdb-type", "JSON")
   scopesJson?: string;
 
   @doc("Last used timestamp")
@@ -335,7 +327,6 @@ model WorkspaceTokenEntity {
 // =============================================================================
 
 @doc("Local process identity per workspace")
-@extension("x-duckdb-table", "workspace_process_registry")
 @extension("x-csharp-type", "ProcessRegistryEntity")
 model ProcessRegistryEntity {
   @doc("Registry entry ID")
@@ -414,7 +405,6 @@ enum ProcessStatus {
 // =============================================================================
 
 @doc("Collision-proof port lease entry")
-@extension("x-duckdb-table", "port_leases")
 @extension("x-csharp-type", "PortLeaseEntity")
 model PortLeaseEntity {
   @doc("Leased port number")

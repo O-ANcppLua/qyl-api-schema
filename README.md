@@ -21,7 +21,7 @@ open-telemetry/semantic-conventions @ v1.41.0
         |
         | TypeSpec emit
         v
-OpenAPI JSON + JSON Schema + Qyl.Api.Contracts + TS types + DuckDB/schema artifacts
+OpenAPI JSON + JSON Schema + Qyl.Api.Contracts + TS contract types
         |
         v
 qyl services, dashboard, tools, and generated clients
@@ -30,7 +30,7 @@ qyl services, dashboard, tools, and generated clients
 The generic OpenTelemetry key projection lives in
 `@ancplua/typespec-otel-semconv` under
 `ANcpLua.OpenTelemetry.SemanticConventions.Keys.*`. This repo defines qyl domain
-models, routes, storage shapes, and response contracts under `Qyl.Api.Contracts.*`.
+models, routes, and response contracts under `Qyl.Api.Contracts.*`.
 
 ## Published artifacts
 
@@ -51,7 +51,7 @@ world through a client emitter.
 | `index.tsp` | Published TypeSpec entry point. Excludes local emitter wiring. |
 | `api/` | REST and streaming API operations. |
 | `common/`, `models/`, `otel/`, `intelligence/` | qyl contract models. |
-| `emitters/` | Local TypeSpec emitters for C#, DuckDB, TS types, and qyl schema linting. |
+| `emitters/` | Local TypeSpec emitters for C#, TS types, and qyl schema linting. |
 | `generated/` | Generated artifacts from `npm run compile`; never edit by hand. |
 | `packaging/Qyl.Api.Contracts.csproj` | Packs `generated/contracts` as the `Qyl.Api.Contracts` NuGet. |
 
@@ -70,12 +70,12 @@ npm run compile
 - `generated/openapi/qyl.openapi.json`
 - `generated/json-schema/qyl-api-schema.json`
 - `generated/contracts/**/*.cs`
-- `generated/duckdb/**`
 - `generated/ts-types/**`
 
 ## Hard boundaries
 
 - Do not add TypeSpec C# server scaffold emitters.
+- Do not add DuckDB/storage schema emitters. Physical storage schema lives in qyl runtime mapping specs.
 - Do not commit generated ASP.NET projects, controllers, mocks, or starter
   docs that tell maintainers to fill in mock business logic.
 - Do not add compatibility shims for old package IDs or namespaces.

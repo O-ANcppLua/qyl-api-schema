@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Ops.Retention;
 // =============================================================================
 
 @doc("Per-table data retention rule")
-@extension("x-duckdb-table", "retention_policies")
 @extension("x-csharp-type", "RetentionPolicyEntity")
 model RetentionPolicyEntity {
   @doc("Policy ID")
@@ -77,7 +76,6 @@ enum CleanupStrategy {
 // =============================================================================
 
 @doc("DuckDB compaction progress tracker")
-@extension("x-duckdb-table", "compaction_state")
 @extension("x-csharp-type", "CompactionStateEntity")
 model CompactionStateEntity {
   @doc("State ID")
@@ -148,7 +146,6 @@ enum CompactionStatus {
 // =============================================================================
 
 @doc("Bulk data maintenance job (backfill, reindex, repair)")
-@extension("x-duckdb-table", "backfill_jobs")
 @extension("x-csharp-type", "BackfillJobEntity")
 model BackfillJobEntity {
   @doc("Job ID")
@@ -168,7 +165,6 @@ model BackfillJobEntity {
 
   @doc("Row filter")
   @encodedName("application/json", "filter_json")
-  @extension("x-duckdb-type", "JSON")
   filterJson?: string;
 
   @doc("Job status")

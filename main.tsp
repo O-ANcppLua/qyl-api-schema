@@ -6,19 +6,11 @@
 //
 // Structure:
 //   - Common: types, errors, pagination
-//   - OTel Core: enums, span, logs, metrics, profiles, resource, storage
+//   - OTel Core: enums, span, logs, metrics, profiles, resource
 //   - Generated: otel-keys.gen.tsp (OTel v1.41.0 semantic-convention keys)
 //   - Domains: extracted models (stats, entities, etc.)
 //   - API: REST routes, SSE streaming
 //
-// Storage Tables (x-duckdb-table):
-//   - Span → spans (otel/span.tsp)
-//   - LogRecord → logs (otel/logs.tsp)
-//   - SessionEntity → session_entities (models/session.tsp)
-//   - ErrorEntity → errors (models/error.tsp)
-//   - TestRunEntity → test_runs (models/test.tsp)
-//   - TestCaseEntity → test_cases (models/test.tsp)
-//   - DeploymentEntity → deployments (models/deployment.tsp)
 // =============================================================================
 
 import "@typespec/http";
@@ -51,7 +43,6 @@ import "./common/pagination.tsp";
 // =============================================================================
 
 import "./emit-config.tsp";
-import "./emit-duckdb.tsp";
 
 // =============================================================================
 // OTel Core Types
@@ -63,7 +54,6 @@ import "./otel/span.tsp";
 import "./otel/logs.tsp";
 import "./otel/metrics.tsp";
 import "./otel/profiles.tsp";
-import "./otel/storage.tsp";
 
 // =============================================================================
 // Domain Models

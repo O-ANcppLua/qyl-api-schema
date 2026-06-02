@@ -21,7 +21,6 @@ import "../models/log.tsp";
 import "../models/error.tsp";
 import "../models/deployment.tsp";
 import "../models/identity.tsp";
-import "../otel/storage.tsp";
 
 // New domain models
 import "../models/workspace.tsp";
@@ -42,7 +41,6 @@ using Qyl.Api.Contracts.OTel.Traces;
 using Qyl.Api.Contracts.OTel.Logs;
 using Qyl.Api.Contracts.OTel.Enums;
 using Qyl.Api.Contracts.OTel.Profiles;
-using Qyl.Api.Contracts.Storage;
 using Qyl.Api.Contracts.Domains.Observe.Session;
 using Qyl.Api.Contracts.Domains.Observe.Log;
 using Qyl.Api.Contracts.Domains.Observe.Error;
@@ -121,7 +119,7 @@ interface TracesApi {
     @path traceId: TraceId,
     @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
     @query @doc("Cursor") cursor?: string,
-  ): CursorPage<SpanRecord> | NotFoundError | InternalServerError;
+  ): CursorPage<Span> | NotFoundError | InternalServerError;
 
   @doc("Search traces")
   @post
@@ -379,12 +377,12 @@ interface ProfilesApi {
     @query @doc("Service name filter") serviceName?: string,
     @query @doc("Sample type filter (e.g., cpu, alloc_objects, wall)") sampleType?: string,
     @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
-  ): ProfileRecord[] | ValidationError | InternalServerError;
+  ): Profile[] | ValidationError | InternalServerError;
 
   @doc("Get a specific profile by ID")
   @get
   @route("/{profileId}")
-  get(@path profileId: string): ProfileRecord | NotFoundError | InternalServerError;
+  get(@path profileId: string): Profile | NotFoundError | InternalServerError;
 
   @doc("Get profiles for a trace")
   @get
@@ -392,7 +390,7 @@ interface ProfilesApi {
   getByTrace(
     @path traceId: TraceId,
     @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
-  ): ProfileRecord[] | InternalServerError;
+  ): Profile[] | InternalServerError;
 
   @doc("Get profiles for a span")
   @get
@@ -400,7 +398,7 @@ interface ProfilesApi {
   getBySpan(
     @path spanId: SpanId,
     @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
-  ): ProfileRecord[] | InternalServerError;
+  ): Profile[] | InternalServerError;
 }
 
 // =============================================================================

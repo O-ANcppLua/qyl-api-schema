@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Search;
 // =============================================================================
 
 @doc("Canonical search document across all entity types")
-@extension("x-duckdb-table", "search_documents")
 @extension("x-csharp-type", "SearchDocumentEntity")
 model SearchDocumentEntity {
   @doc("Document ID")
@@ -47,12 +46,10 @@ model SearchDocumentEntity {
 
   @doc("Document tags")
   @encodedName("application/json", "tags_json")
-  @extension("x-duckdb-type", "JSON")
   tagsJson?: string;
 
   @doc("Additional metadata")
   @encodedName("application/json", "metadata_json")
-  @extension("x-duckdb-type", "JSON")
   metadataJson?: string;
 
   @doc("Relevance boost factor")
@@ -99,7 +96,6 @@ enum SearchEntityType {
 // =============================================================================
 
 @doc("Inverted token index entry")
-@extension("x-duckdb-table", "search_terms")
 @extension("x-csharp-type", "SearchTermEntity")
 model SearchTermEntity {
   @doc("Normalized term")
@@ -118,7 +114,6 @@ model SearchTermEntity {
 
   @doc("Position offsets for highlighting")
   @encodedName("application/json", "position_offsets_json")
-  @extension("x-duckdb-type", "JSON")
   positionOffsetsJson?: string;
 }
 
@@ -127,7 +122,6 @@ model SearchTermEntity {
 // =============================================================================
 
 @doc("Search query telemetry entry")
-@extension("x-duckdb-table", "search_query_audit")
 @extension("x-csharp-type", "SearchQueryAuditEntity")
 model SearchQueryAuditEntity {
   @doc("Audit entry ID")
@@ -144,7 +138,6 @@ model SearchQueryAuditEntity {
 
   @doc("Filtered entity types")
   @encodedName("application/json", "entity_types_json")
-  @extension("x-duckdb-type", "JSON")
   entityTypesJson?: string;
 
   @doc("Project scope")

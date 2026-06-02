@@ -17,7 +17,6 @@ namespace Qyl.Api.Contracts.Domains.Workflow;
 // =============================================================================
 
 @doc("Top-level workflow execution")
-@extension("x-duckdb-table", "workflow_runs")
 @extension("x-csharp-type", "WorkflowRunEntity")
 model WorkflowRunEntity {
   @doc("Run ID")
@@ -46,12 +45,10 @@ model WorkflowRunEntity {
 
   @doc("Run input data")
   @encodedName("application/json", "input_json")
-  @extension("x-duckdb-type", "JSON")
   inputJson?: string;
 
   @doc("Run output data")
   @encodedName("application/json", "output_json")
-  @extension("x-duckdb-type", "JSON")
   outputJson?: string;
 
   @doc("Run status")
@@ -136,7 +133,6 @@ enum WorkflowRunStatus {
 // =============================================================================
 
 @doc("Individual DAG node execution")
-@extension("x-duckdb-table", "workflow_nodes")
 @extension("x-csharp-type", "WorkflowNodeEntity")
 model WorkflowNodeEntity {
   @doc("Execution ID")
@@ -164,12 +160,10 @@ model WorkflowNodeEntity {
 
   @doc("Node input data")
   @encodedName("application/json", "input_json")
-  @extension("x-duckdb-type", "JSON")
   inputJson?: string;
 
   @doc("Node output data")
   @encodedName("application/json", "output_json")
-  @extension("x-duckdb-type", "JSON")
   outputJson?: string;
 
   @doc("Node status")
@@ -263,7 +257,6 @@ model WorkflowCheckpointEntity {
 
   @doc("Serialized state")
   @encodedName("application/json", "state_json")
-  @extension("x-duckdb-type", "JSON")
   stateJson: string;
 
   @doc("Monotonic sequence number")
@@ -280,7 +273,6 @@ model WorkflowCheckpointEntity {
 // =============================================================================
 
 @doc("Cross-node versioned KV store per run")
-@extension("x-duckdb-table", "workflow_shared_state")
 @extension("x-csharp-type", "WorkflowSharedStateEntity")
 model WorkflowSharedStateEntity {
   @doc("Run ID")
@@ -292,7 +284,6 @@ model WorkflowSharedStateEntity {
 
   @doc("State value")
   @encodedName("application/json", "value_json")
-  @extension("x-duckdb-type", "JSON")
   valueJson: string;
 
   @doc("Optimistic concurrency version")
@@ -316,7 +307,6 @@ model WorkflowSharedStateEntity {
 // =============================================================================
 
 @doc("Append-only workflow event")
-@extension("x-duckdb-table", "workflow_events")
 @extension("x-csharp-type", "WorkflowEventEntity")
 model WorkflowEventEntity {
   @doc("Event ID")
@@ -341,7 +331,6 @@ model WorkflowEventEntity {
 
   @doc("Event payload")
   @encodedName("application/json", "payload_json")
-  @extension("x-duckdb-type", "JSON")
   payloadJson?: string;
 
   @doc("Monotonic sequence number")
@@ -364,7 +353,6 @@ model WorkflowEventEntity {
 // =============================================================================
 
 @doc("DAG conditional branch predicate")
-@extension("x-duckdb-table", "workflow_routing_rules")
 @extension("x-csharp-type", "WorkflowRoutingRuleEntity")
 model WorkflowRoutingRuleEntity {
   @doc("Rule ID")

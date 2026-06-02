@@ -8,7 +8,7 @@ and emits the `Qyl.Api.Contracts` NuGet package.
 ```text
 @ancplua/typespec-otel-semconv
   -> qyl-api-schema
-  -> OpenAPI / JSON Schema / Qyl.Api.Contracts / storage-schema artifacts
+  -> OpenAPI / JSON Schema / Qyl.Api.Contracts / TypeScript contract types
   -> qyl runtime and generated clients
 ```
 
@@ -21,7 +21,6 @@ projection. This repo is qyl-specific. Keep those identities separate.
 - JSON Schema
 - BCL-only C# DTO contracts in `Qyl.Api.Contracts`
 - TypeScript schema/types
-- DuckDB/storage-schema artifacts
 
 ## Forbidden outputs
 
@@ -30,6 +29,7 @@ projection. This repo is qyl-specific. Keep those identities separate.
 - generated mock implementations
 - SwaggerUI starter projects
 - generated starter docs that tell maintainers to fill in mock business logic
+- DuckDB/storage-schema emitters or artifacts
 - compatibility shims, aliases, adapters, or packages for old identities
 
 ## Naming

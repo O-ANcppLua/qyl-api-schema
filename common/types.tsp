@@ -56,7 +56,6 @@ enum OTelVersion {
 @minLength(32)
 @maxLength(32)
 @example("0af7651916cd43dd8448eb211c80319c")
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "VARCHAR(32)")
 @TypeSpec.OpenAPI.extension("x-csharp-struct", true)
 @TypeSpec.OpenAPI.extension("x-csharp-type", "TraceId")
 scalar TraceId extends string;
@@ -67,7 +66,6 @@ scalar TraceId extends string;
 @minLength(16)
 @maxLength(16)
 @example("b7ad6b7169203331")
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "VARCHAR(16)")
 @TypeSpec.OpenAPI.extension("x-csharp-struct", true)
 @TypeSpec.OpenAPI.extension("x-csharp-type", "SpanId")
 scalar SpanId extends string;
@@ -87,7 +85,6 @@ scalar TraceState extends string;
 @doc("Unique session identifier")
 @minLength(1)
 @maxLength(128)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "VARCHAR(128)")
 @TypeSpec.OpenAPI.extension("x-csharp-struct", true)
 @TypeSpec.OpenAPI.extension("x-csharp-type", "SessionId")
 scalar SessionId extends string;
@@ -110,7 +107,6 @@ scalar Timestamp extends utcDateTime;
 @jsonSchema
 @doc("Unix timestamp in nanoseconds since epoch")
 @encode(DateTimeKnownEncoding.unixTimestamp, int64)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "UBIGINT")
 @TypeSpec.OpenAPI.extension("x-csharp-struct", true)
 @TypeSpec.OpenAPI.extension("x-csharp-type", "UnixNano")
 scalar UnixNanos extends utcDateTime;
@@ -118,14 +114,12 @@ scalar UnixNanos extends utcDateTime;
 @jsonSchema
 @doc("Duration in nanoseconds")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "UBIGINT")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "long")
 scalar DurationNs extends int64;
 
 @jsonSchema
 @doc("Duration in milliseconds")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "DOUBLE")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "double")
 scalar DurationMs extends float64;
 
@@ -162,7 +156,6 @@ scalar IpAddress extends string;
 @doc("Network port number (1-65535)")
 @minValue(1)
 @maxValue(65535)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "INTEGER")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "int")
 scalar Port extends int32;
 
@@ -179,21 +172,18 @@ scalar MacAddress extends string;
 @jsonSchema
 @doc("Size in bytes")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "BIGINT")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "long")
 scalar ByteSize extends int64;
 
 @jsonSchema
 @doc("Token count (for LLM operations)")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "BIGINT")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "long")
 scalar TokenCount extends int64;
 
 @jsonSchema
 @doc("Generic non-negative counter")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "BIGINT")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "long")
 scalar Count extends int64;
 
@@ -201,7 +191,6 @@ scalar Count extends int64;
 @doc("Percentage value (0.0 to 100.0)")
 @minValue(0.0)
 @maxValue(100.0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "DOUBLE")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "double")
 scalar Percentage extends float64;
 
@@ -209,7 +198,6 @@ scalar Percentage extends float64;
 @doc("Ratio value (0.0 to 1.0)")
 @minValue(0.0)
 @maxValue(1.0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "DOUBLE")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "double")
 scalar Ratio extends float64;
 
@@ -220,7 +208,6 @@ scalar Ratio extends float64;
 @jsonSchema
 @doc("Cost in USD (floating point)")
 @minValue(0)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "DOUBLE")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "double")
 scalar CostUsd extends float64;
 
@@ -228,7 +215,6 @@ scalar CostUsd extends float64;
 @doc("Temperature setting for LLM requests (0.0-2.0)")
 @minValue(0)
 @maxValue(2)
-@TypeSpec.OpenAPI.extension("x-duckdb-type", "DOUBLE")
 @TypeSpec.OpenAPI.extension("x-csharp-type", "double")
 scalar Temperature extends float64;
 
