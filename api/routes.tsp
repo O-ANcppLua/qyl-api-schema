@@ -181,14 +181,7 @@ interface TracesApi {
   @doc("List traces with pagination")
   @get
   list(
-    @query @doc("Service name filter") serviceName?: string,
-    @query @doc("Minimum duration in ms") minDurationMs?: int64,
-    @query @doc("Maximum duration in ms") maxDurationMs?: int64,
-    @query @doc("Status filter") status?: SpanStatusCode,
-    @query @doc("Start time") startTime?: utcDateTime,
-    @query @doc("End time") endTime?: utcDateTime,
     @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
-    @query @doc("Cursor for pagination") cursor?: string,
   ): CursorPage<Trace> | NotFoundError | ValidationError | InternalServerError;
 
   @doc("Get a specific trace by ID")
@@ -201,58 +194,7 @@ interface TracesApi {
   @route("/{traceId}/spans")
   getSpans(
     @path traceId: TraceId,
-    @query @doc("Page size") @minValue(1) @maxValue(1000) limit?: int32 = 100,
-    @query @doc("Cursor") cursor?: string,
   ): CursorPage<Span> | NotFoundError | InternalServerError;
-
-  @doc("Search traces")
-  @post
-  @route("/search")
-  search(@body query: TraceQuery): CursorPage<Trace> | ValidationError | InternalServerError;
-}
-
-@doc("Trace search query")
-model TraceQuery {
-  @doc("Free text search")
-  query?: string;
-
-  @doc("Service name filter")
-  @encodedName("application/json", "service_name")
-  serviceName?: string;
-
-  @doc("Operation name filter")
-  @encodedName("application/json", "operation_name")
-  operationName?: string;
-
-  @doc("Minimum duration in milliseconds")
-  @encodedName("application/json", "min_duration_ms")
-  minDurationMs?: int64;
-
-  @doc("Maximum duration in milliseconds")
-  @encodedName("application/json", "max_duration_ms")
-  maxDurationMs?: int64;
-
-  @doc("Status filter")
-  status?: SpanStatusCode;
-
-  @doc("Time range start")
-  @encodedName("application/json", "start_time")
-  startTime?: utcDateTime;
-
-  @doc("Time range end")
-  @encodedName("application/json", "end_time")
-  endTime?: utcDateTime;
-
-  @doc("Tag filters")
-  tags?: Record<string>;
-
-  @doc("Page size")
-  @minValue(1)
-  @maxValue(1000)
-  limit?: int32 = 100;
-
-  @doc("Cursor")
-  cursor?: string;
 }
 
 // =============================================================================
@@ -265,80 +207,16 @@ interface LogsApi {
   @doc("Query logs with filtering and pagination")
   @get
   list(
+    @query @doc("Session ID filter") sessionId?: SessionId,
     @query @doc("Service name filter") serviceName?: string,
+    @query @doc("Severity text filter") level?: string,
     @query @doc("Minimum severity") severityMin?: SeverityNumber,
-    @query @doc("Maximum severity") severityMax?: SeverityNumber,
     @query @doc("Trace ID filter") traceId?: TraceId,
     @query @doc("Start time") startTime?: utcDateTime,
     @query @doc("End time") endTime?: utcDateTime,
     @query @doc("Free text search") query?: string,
     @query @doc("Page size") @minValue(1) @maxValue(10000) limit?: int32 = 100,
-    @query @doc("Cursor") cursor?: string,
-    @query @doc("Order") orderBy?: LogOrderBy,
   ): CursorPage<LogRecord> | ValidationError | InternalServerError;
-
-  @doc("Search logs with complex query")
-  @post
-  @route("/search")
-  search(@body query: LogQuery): CursorPage<LogRecord> | ValidationError | InternalServerError;
-
-  @doc("Aggregate logs")
-  @post
-  @route("/aggregate")
-  aggregate(@body request: LogAggregationRequest): LogAggregationResponse | ValidationError | InternalServerError;
-
-  @doc("Get log patterns")
-  @get
-  @route("/patterns")
-  getPatterns(
-    @query @doc("Service name filter") serviceName?: string,
-    @query @doc("Start time") startTime?: utcDateTime,
-    @query @doc("End time") endTime?: utcDateTime,
-    @query @doc("Minimum occurrences") minCount?: int32,
-  ): LogPattern[] | InternalServerError;
-
-  @doc("Get log statistics")
-  @get
-  @route("/stats")
-  getStats(
-    @query @doc("Service name filter") serviceName?: string,
-    @query @doc("Start time") startTime?: utcDateTime,
-    @query @doc("End time") endTime?: utcDateTime,
-  ): Qyl.Api.Contracts.OTel.Logs.LogStats | InternalServerError;
-}
-
-@doc("Log aggregation request")
-model LogAggregationRequest {
-  @doc("Query filters")
-  query?: LogQuery;
-
-  @doc("Aggregation specification")
-  aggregation: LogAggregation;
-}
-
-@doc("Log aggregation response")
-model LogAggregationResponse {
-  @doc("Aggregation results")
-  results: LogAggregationBucket[];
-
-  @doc("Total matching logs")
-  @encodedName("application/json", "total_count")
-  totalCount: Count;
-}
-
-@doc("Log aggregation bucket")
-model LogAggregationBucket {
-  @doc("Bucket key (group by value)")
-  key: string;
-
-  @doc("Aggregated value")
-  value: float64;
-
-  @doc("Document count")
-  count: Count;
-
-  @doc("Timestamp (for time series)")
-  timestamp?: utcDateTime;
 }
 
 // =============================================================================
@@ -512,8 +390,6 @@ interface SessionsApi {
   @route("/{sessionId}/traces")
   getTraces(
     @path sessionId: string,
-    @query @doc("Page size") limit?: int32 = 100,
-    @query @doc("Cursor") cursor?: string,
   ): CursorPage<Trace> | NotFoundError | InternalServerError;
 
   @doc("Get session statistics")

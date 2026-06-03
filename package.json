@@ -1,6 +1,6 @@
 {
   "name": "@o-ancpplua/qyl-api-schema",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "TypeSpec source of truth for qyl API contracts. Emits OpenAPI, JSON Schema, Qyl.Api.Contracts DTOs, and TypeScript contract types; not an OpenTelemetry package, storage schema, or server implementation.",
   "license": "Apache-2.0",
   "repository": {
