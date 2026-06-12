@@ -3,6 +3,7 @@
 
 import {
     createTypeSpecLibrary,
+    NoTarget,
     paramMessage,
     resolvePath,
     setTypeSpecNamespace,
@@ -134,7 +135,6 @@ export interface TcgEmitterOptions {
     "include-conformance-plan"?: boolean;
     "include-report"?: boolean;
     "schema-id"?: string;
-    "fail-on-diagnostics"?: boolean;
 }
 
 interface TcgRawInstanceRecord {
@@ -504,6 +504,7 @@ function parseFileTypes(context: EmitContext<TcgEmitterOptions>): Set<"json" | "
             reportDiagnostic(context.program, {
                 code: "bad-emitter-option",
                 format: { option: "file-types", detail: `unsupported file type '${String(value)}'; expected json or yaml` },
+                target: NoTarget,
             });
             return undefined;
         }
@@ -511,7 +512,7 @@ function parseFileTypes(context: EmitContext<TcgEmitterOptions>): Set<"json" | "
     }
 
     if (fileTypes.size === 0) {
-        reportDiagnostic(context.program, { code: "bad-emitter-option", format: { option: "file-types", detail: "at least one file type is required" } });
+        reportDiagnostic(context.program, { code: "bad-emitter-option", format: { option: "file-types", detail: "at least one file type is required" }, target: NoTarget });
         return undefined;
     }
 

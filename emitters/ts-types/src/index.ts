@@ -103,6 +103,10 @@ function mapType(program: import("@typespec/compiler").Program, type: Type): str
       return (type as { name?: string }).name ?? "unknown";
     case "Enum":
       return (type as Enum).name;
+    case "ModelProperty":
+      // TypeSpec 1.13 constraint-based member access (e.g. `P.id`): the property
+      // reference stands for the referenced property's type.
+      return mapType(program, (type as { type: Type }).type);
     case "EnumMember": {
       const m = type as { value?: string | number; name: string };
       const v = m.value ?? m.name;

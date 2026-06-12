@@ -90,10 +90,13 @@ import "./models/system.tsp";
 
 // Identity Domain - User stats
 import "./models/identity.tsp";
+import "./models/control-graph.tsp";
 
 // =============================================================================
 // API Routes
 // =============================================================================
+
+import "./graph/qyl.tsp";
 
 import "./api/routes.tsp";
 import "./api/streaming.tsp";

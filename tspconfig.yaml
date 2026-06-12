@@ -3,12 +3,22 @@
 # and DTO artifacts only; qyl owns runtime services and physical storage schemas.
 
 emit:
+  - "@qyl/telemetry-control-graph"
   - "@ancplua/typespec-emit-csharp"
   - "@ancplua/typespec-emit-ts-types"
   - "@typespec/openapi3"
   - "@typespec/json-schema"
 
 options:
+  "@qyl/telemetry-control-graph":
+    emitter-output-dir: "{project-root}/generated/control-graph"
+    file-types:
+      - json
+      - yaml
+    include-schema: true
+    include-conformance-plan: true
+    include-report: true
+
   "@ancplua/typespec-emit-csharp":
     emitter-output-dir: "{project-root}/generated/contracts"
 
@@ -32,3 +42,8 @@ options:
 linter:
   extends:
     - "@typespec/http/all"
+    - "@ancplua/typespec-otelconventions-lint/recommended"
+  enable:
+    "@ancplua/typespec-otelconventions-lint/graph-attribute-key":
+      pattern: "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"
+      allowedRoots: ["qyl", "ancplua"]

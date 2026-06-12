@@ -1,0 +1,73 @@
+{
+  "schema_version": "1",
+  "services": [
+    {
+      "service_name": "qyl.collector",
+      "profile_id": "qyl-default",
+      "signals": [
+        {
+          "kind": "log",
+          "name": "qyl.collector.ingest",
+          "attributes": [
+            {
+              "key": "qyl.session.id",
+              "requirement": "recommended"
+            }
+          ]
+        },
+        {
+          "kind": "metric",
+          "name": "http.server.request.duration",
+          "attributes": [
+            {
+              "key": "http.request.method",
+              "requirement": "required"
+            },
+            {
+              "key": "http.response.status_code",
+              "requirement": "recommended"
+            }
+          ]
+        },
+        {
+          "kind": "span",
+          "name": "http.server.request",
+          "attributes": [
+            {
+              "key": "http.request.method",
+              "requirement": "required"
+            },
+            {
+              "key": "http.response.status_code",
+              "requirement": "recommended"
+            },
+            {
+              "key": "url.path",
+              "requirement": "recommended"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "service_name": "qyl.dashboard",
+      "profile_id": "qyl-default",
+      "signals": [
+        {
+          "kind": "span",
+          "name": "http.client.request",
+          "attributes": [
+            {
+              "key": "http.request.method",
+              "requirement": "required"
+            },
+            {
+              "key": "server.address",
+              "requirement": "recommended"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -44,6 +44,7 @@ import "./models/test.tsp";
 import "./models/deployment.tsp";
 import "./models/system.tsp";
 import "./models/identity.tsp";
+import "./models/control-graph.tsp";
 
 import "./api/routes.tsp";
 import "./api/streaming.tsp";

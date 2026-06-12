@@ -42,6 +42,10 @@ export function mapType(program: Program, type: Type): string {
       return qualifyModelOrEnum(program, type);
     case "Enum":
       return qualifyModelOrEnum(program, type);
+    case "ModelProperty":
+      // TypeSpec 1.13 constraint-based member access (e.g. `P.id`): the property
+      // reference stands for the referenced property's type.
+      return mapType(program, (type as { type: Type }).type);
     case "EnumMember":
       return qualifyModelOrEnum(program, (type as { enum: Type }).enum);
     case "Union":

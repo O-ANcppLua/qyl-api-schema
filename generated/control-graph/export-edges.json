@@ -1,0 +1,33 @@
+{
+  "schema_version": "1",
+  "edges": [
+    {
+      "service_name": "qyl.collector",
+      "signal_kind": "log",
+      "exporter_id": "collector-primary",
+      "protocol": "otlp_grpc",
+      "endpoint_env_var": "OTEL_EXPORTER_OTLP_ENDPOINT"
+    },
+    {
+      "service_name": "qyl.collector",
+      "signal_kind": "metric",
+      "exporter_id": "collector-primary",
+      "protocol": "otlp_grpc",
+      "endpoint_env_var": "OTEL_EXPORTER_OTLP_ENDPOINT"
+    },
+    {
+      "service_name": "qyl.collector",
+      "signal_kind": "span",
+      "exporter_id": "collector-primary",
+      "protocol": "otlp_grpc",
+      "endpoint_env_var": "OTEL_EXPORTER_OTLP_ENDPOINT"
+    },
+    {
+      "service_name": "qyl.dashboard",
+      "signal_kind": "span",
+      "exporter_id": "collector-primary",
+      "protocol": "otlp_http",
+      "endpoint_env_var": "QYL_OTLP_HTTP_ENDPOINT"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "1",
+  "graph_schema_version": "1",
+  "services": [
+    {
+      "service_name": "qyl.collector",
+      "profile_id": "qyl-default",
+      "expected_signals": [
+        {
+          "kind": "log",
+          "name": "qyl.collector.ingest",
+          "required_attributes": [],
+          "recommended_attributes": [
+            "qyl.session.id"
+          ],
+          "opt_in_attributes": [],
+          "exporter_ids": [
+            "collector-primary"
+          ]
+        },
+        {
+          "kind": "metric",
+          "name": "http.server.request.duration",
+          "required_attributes": [
+            "http.request.method"
+          ],
+          "recommended_attributes": [
+            "http.response.status_code"
+          ],
+          "opt_in_attributes": [],
+          "exporter_ids": [
+            "collector-primary"
+          ]
+        },
+        {
+          "kind": "span",
+          "name": "http.server.request",
+          "required_attributes": [
+            "http.request.method"
+          ],
+          "recommended_attributes": [
+            "http.response.status_code",
+            "url.path"
+          ],
+          "opt_in_attributes": [],
+          "exporter_ids": [
+            "collector-primary"
+          ]
+        }
+      ],
+      "export_edges": [
+        {
+          "exporter_id": "collector-primary",
+          "protocol": "otlp_grpc",
+          "endpoint_env_var": "OTEL_EXPORTER_OTLP_ENDPOINT",
+          "signals": [
+            "log",
+            "metric",
+            "span"
+          ]
+        }
+      ]
+    },
+    {
+      "service_name": "qyl.dashboard",
+      "profile_id": "qyl-default",
+      "expected_signals": [
+        {
+          "kind": "span",
+          "name": "http.client.request",
+          "required_attributes": [
+            "http.request.method"
+          ],
+          "recommended_attributes": [
+            "server.address"
+          ],
+          "opt_in_attributes": [],
+          "exporter_ids": [
+            "collector-primary"
+          ]
+        }
+      ],
+      "export_edges": [
+        {
+          "exporter_id": "collector-primary",
+          "protocol": "otlp_http",
+          "endpoint_env_var": "QYL_OTLP_HTTP_ENDPOINT",
+          "signals": [
+            "span"
+          ]
+        }
+      ]
+    }
+  ]
+}

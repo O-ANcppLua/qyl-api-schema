@@ -96,3 +96,6 @@ setTypeSpecNamespace("Qyl.Api.Schema.Semconv", $ancpluaAttr);
 export function $onValidate(program: Program): void {
     runAllRules(program);
 }
+
+// Telemetry Control Graph policy rules (configurable via tspconfig linter options).
+export { $linter, graphAttributeKeyRule, graphOrphanSignalsRule } from "./linter.js";

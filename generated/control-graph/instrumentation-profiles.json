@@ -1,0 +1,12 @@
+{
+  "schema_version": "1",
+  "profiles": [
+    {
+      "profile_id": "qyl-default",
+      "service_names": [
+        "qyl.collector",
+        "qyl.dashboard"
+      ]
+    }
+  ]
+}
