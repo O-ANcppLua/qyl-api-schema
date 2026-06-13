@@ -65,7 +65,7 @@
     "@ancplua/typespec-emit-ts-types": "file:./emitters/ts-types",
     "@ancplua/typespec-otel-semconv": "1.41.0-2",
     "@ancplua/typespec-otelconventions-lint": "file:./emitters/otelconventions-lint",
-    "@types/node": "25.9.1",
+    "@types/node": "25.9.2",
     "@typespec/compiler": "1.13.0",
     "@typespec/events": "0.83.0",
     "@typespec/http": "1.13.0",
