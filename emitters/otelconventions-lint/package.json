@@ -24,7 +24,7 @@
     "@types/node": "25.9.1",
     "@typespec/compiler": "1.13.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.7"
+    "vitest": "4.1.8"
   },
   "dependencies": {
     "@qyl/telemetry-control-graph": "file:../telemetry-control-graph"

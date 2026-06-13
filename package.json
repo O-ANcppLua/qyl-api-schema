@@ -77,7 +77,7 @@
     "@typespec/streams": "0.83.0",
     "@typespec/versioning": "0.83.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.7",
+    "vitest": "4.1.8",
     "@qyl/telemetry-control-graph": "file:./emitters/telemetry-control-graph"
   },
   "dependencies": {
