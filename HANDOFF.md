@@ -81,6 +81,38 @@ This is **not** an agent-swarm task — it builds and emits today. The high-leve
 *depth done right* (P8–P10 with snapshot tests proving the new wire-shape), not agent count.
 One focused executor + the verification goal above is the correct shape.
 
+## Cross-repo redundancy verdict (verified 2026-06-13, read-only across all 4 repos)
+
+The recurring "is the conformance contract duplicated?" question — answered with evidence.
+
+**There are two `conformance-plan.json` files, from two generators:**
+
+| Plan | Generator | Subject (verified by reading the JSON) |
+|---|---|---|
+| `qyl-api-schema/generated/control-graph/conformance-plan.json` | TypeSpec `@qyl/telemetry-control-graph` | qyl's **own product services**: `qyl.collector`, `qyl.dashboard`. Richer: has `export_edges` + `recommended_attributes`. |
+| `qyl-dotnet-autoinstrumentation/docs/qyl-aot-autoinstrumentation.conformance-plan.json` | Python `tools/generate-contract-artifacts.py` | the **.NET instrumentation coverage matrix**: 13 demo services (`qyl-db-aot-demo`, `qyl-grpc-aot-demo`, …). Leaner: `required_attributes` only. |
+
+**Verdict: NOT data duplication.** Same wire contract (`schema_version "1"`), **disjoint subjects**
+(product services vs instrumentation demos). Do **not** "consolidate the plans" — they describe
+different things. A breadth-first map that flags "two conformance-plans = redundant" is wrong.
+
+**The one REAL (small) redundancy = the plan SHAPE has no single schema.** The conformance-plan
+wire shape is hand-reimplemented in **three** places that must agree by hand:
+1. the TypeSpec emitter (emits the plan),
+2. the Python generator (re-emits the same shape independently),
+3. `qyl/internal/qyl.conformance/ConformancePlan.cs` (C# wire model — its own doc-comment says
+   *"Wire model of conformance-plan.json as emitted by @qyl/telemetry-control-graph"*).
+
+The C# `ConformanceVerifier.Verify(plan, observed)` is a **schema-agnostic diff engine** — it
+consumes *either* plan. Good design. But the shape drift is **already visible**: the Python plan
+lacks `export_edges` + `recommended_attributes` that the TypeSpec/C# side has.
+
+**Fix (closes the only drift seam, low effort):** the emitter already emits
+`control-graph.schema.json` for the *input* graph — emit a sibling **`conformance-plan.schema.json`**
+the same way, then make the Python generator and a C# round-trip test **validate against that one
+schema**. One schema artifact, three producers/consumers validate — instead of three hand-copies.
+This is the SSOT, not merging the plans.
+
 ## Boundary (confirmed correct by the prior agent, restated)
 
 The TypeSpec emitter lives **only** here in `qyl-api-schema`. Do **not** rebuild a second
